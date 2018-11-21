@@ -36,6 +36,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    loadAsset().then((onValue){
+      s = onValue;
+      setState(() {
+
+      });
+
+    });
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -57,8 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
       <b>Bold</b>
       </div>
       
-      <custom_tag> </custom_tag>
-      <asset_tag> </asset_tag>
+      <custom_tag> Тут кастомный текст по простому </custom_tag>
+      """+s+"""
       
       <h1>Demo Page</h1>
       <p>This is a <u>fantastic</u> nonexistent product that you should really really really consider buying!</p>
@@ -137,24 +146,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 switch (node.localName) {
                   case "custom_tag":
                     return Text(
-                        "Проверка тут это кастомного текста",
+                        node.text,
                         style: TextStyle(fontFamily: "SKH_VERDANA",fontWeight: FontWeight.bold),
                     );
-                  case "asset_tag":
-                    {
 
-
-
-                      loadAsset().then((onValue){
-                        s = onValue;
-                        setState(() {
-
-                        });
-
-                      });
-
-                      return Html(data:s);
-                    }
 
                 }
               }
