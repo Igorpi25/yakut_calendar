@@ -129,7 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
               if (node is dom.Element) {
                 switch (node.localName) {
                   case "custom_tag":
-                    return Text("Проверка тут это кастомного текста");
+                    return Text(
+                        "Проверка тут это кастомного текста",
+                        style: TextStyle(fontFamily: "SKH_VERDANA",fontWeight: FontWeight.bold),
+                    );
                 }
               }
             },
