@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+
 
 void main() => runApp(new MyApp());
 
@@ -28,6 +31,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -52,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       </div>
       
       <custom_tag> </custom_tag>
+      <asset_tag> </asset_tag>
       
       <h1>Demo Page</h1>
       <p>This is a <u>fantastic</u> nonexistent product that you should really really really consider buying!</p>
@@ -133,6 +140,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         "Проверка тут это кастомного текста",
                         style: TextStyle(fontFamily: "SKH_VERDANA",fontWeight: FontWeight.bold),
                     );
+                  case "asset_tag":
+                    {
+
+
+
+                      loadAsset().then((onValue){
+                        s = onValue;
+                        setState(() {
+
+                        });
+
+                      });
+
+                      return Html(data:s);
+                    }
+
                 }
               }
             },
@@ -141,4 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+String s="<p><strong>Loading G...</strong></p>";
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('assets/dummy_yakuts_text.html');
 }
