@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 
 
 void main() => runApp(new MyApp());
@@ -32,13 +29,46 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  DateTime _currentDate=DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.title),
         ),
-        body: Text("asdasd")
+        body: Column(
+          children: <Widget>[
+            Text("asdasd"),
+            getCarousel(),
+          ],
+        )
+    );
+  }
+
+  Widget getCarousel() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      child: CalendarCarousel(
+        onDayPressed: (DateTime date) {
+          this.setState(() => _currentDate = date);
+        },
+        thisMonthDayBorderColor: Colors.grey,
+        height: 420.0,
+        selectedDateTime: _currentDate,
+        daysHaveCircularBorder: null,
+
+        /// null for not rendering any border, true for circular border, false for rectangular border
+//        markedDatesMap: _markedDateMap,
+//          weekendStyle: TextStyle(
+//            color: Colors.red,
+//          ),
+//          weekDays: null, /// for pass null when you do not want to render weekDays
+//          headerText: Container( /// Example for rendering custom header
+//            child: Text('Custom Header'),
+//          ),
+      ),
     );
   }
 }
+
