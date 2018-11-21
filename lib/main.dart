@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 
-void main() => runApp(MyApp());
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+      theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -28,84 +21,121 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+      body: new Center(
+        child: SingleChildScrollView(
+          child: Html(
+            data: """
+    <div>
+      <div id="header_set">
+      <h1>Header 1</h1>
+      <h2>Header 2</h2>
+      <h3>Header 3</h3>
+      <h4>Header 4</h4>
+      <h5>Header 5</h5>
+      <h6>Header 6</h6>
+      <hr />
+      Below hr
+      <b>Bold</b>
+      </div>
+      
+      <custom_tag> </custom_tag>
+      
+      <h1>Demo Page</h1>
+      <p>This is a <u>fantastic</u> nonexistent product that you should really really really consider buying!</p>
+      <a href="https://github.com">https://github.com</a><br />
+      <br />
+      <h2>Pricing</h2>
+      <p>Lorem ipsum <b>dolor</b> sit amet.</p>
+      <center>
+        This is some center text... <abbr>ABBR</abbr> and <acronym>ACRONYM</acronym>
+      </center>
+      <h2>The Team</h2>
+      <p>There isn't <i>really</i> a team...</p>
+      <h2>Installation</h2>
+      <p>You <u>cannot</u> install a nonexistent product!</p>
+      <div id="bdi_test">
+      <h3><code>bdi</code> and <code>bdo</code> Test:</h3>
+      <p>
+      In the example below, usernames are shown along with the number of points in a contest.
+      If the bdi element is not supported in the browser, the username of the Arabic user would confuse the text (the bidirectional algorithm would put the colon and the number "90" next to the word "User" rather than next to the word "points").
+      </p>
+      
+      <ul>
+       <li>User <bdi>hrefs</bdi>: 60 points</li>
+       <li>User <bdi>jdoe</bdi>: 80 points</li>
+       <li>User <bdi>إيان</bdi>: 90 points</li>
+       <bdo dir="rtl">Swapped!</bdo>
+       <bdo dir="ltr">This text will go left to right!</bdo>
+       <bdo dir="rtl">With bdi: User <bdi>إيان</bdi>: 90 points</bdo>
+       <bdo dir="rtl">Without bdi: User إيان: 90 points</bdo>
+       <bdo dir="ltr">ltr w/ bdi: User <bdi>إيان</bdi>: 90 points</bdo>
+       <bdo dir="ltr">ltr w/o bdi: User إيان: 90 points</bdo>
+      </ul>
+      </div>
+            <div>
+              <table>
+              <caption>This is the table's caption</caption>
+                <tr><th>Head 1</th><th>Head 2</th><th>Head 3</th></tr>
+                <tr><td>Data 1</td><td>Long Data 2</td><td>Really, realllllly, long data 3</td></tr>
+                <tr><td>Data 1</td><td>Long <b>Data</b> 2</td><td>Really, realllllly, long data 3</td></tr>
+                <tr><td>Data 1</td><td>Long Data 2</td><td>Really, realllllly, long data 3</td></tr>
+                <tr><td>Different 1</td><td>Different reallllllly long 2</td><td>Diff 3</td></tr>
+                <tr><td colspan="2">This spans 2 columns</td><td>Normal td</td></tr>
+                <tfoot>
+                <tr><td>In foot 1</td><td>In foot 2</td><td>In foot long 2</td></tr>
+                </tfoot>
+              </table>
+            </div>
+            <div>Nested div</div>
+            <div>
+            <pre>
+            jQuery("#monkey");
+            </pre>
+            <br />
+            <p><q>This is a fancy quote</q></p>
+            <br />
+            <br />
+            Second nested div<br />
+            <figure>
+            <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" />
+            <figcaption>Available on GitHub</figcaption>
+            </figure>
+            </div>
+            <div>Third nested div</div>
+          </div>
+          <h1>Second header</h1>
+          <h1>Third header</h1>
+          <div>Fourth div</div>
+  """,
+            //Optional parameters:
+            padding: EdgeInsets.all(8.0),
+            onLinkTap: (url) {
+              print("Opening $url...");
+            },
+            customRender: (node, children) {
+              if (node is dom.Element) {
+                switch (node.localName) {
+                  case "custom_tag":
+                    return Text("Проверка тут это кастомного текста");
+                }
+              }
+            },
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
