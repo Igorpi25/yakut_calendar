@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:yakut_calendar/model/provider.dart';
 
 
 void main() => runApp(new MyApp());
@@ -163,5 +164,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 String s="<p><strong>Loading G...</strong></p>";
 Future<String> loadAsset() async {
-  return await rootBundle.loadString('assets/dummy_yakuts_text.html');
+  DateTime date=DateTime(2018,11,24);
+  return await ArticleAssetProvider().getArticleFor(date);
 }
