@@ -5,13 +5,18 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:yakut_calendar/model/provider.dart';
 
+void main() {
+  runApp(new MyApp());
 
-void main() => runApp(new MyApp());
+}
+
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
@@ -33,18 +38,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String s="Идет загрузка...";
 
+  _MyHomePageState(){
+    loadAsset().then((onValue){
+      print("_MyHomePageState then begin");
+      s = onValue;
+      setState((){});
+      print("_MyHomePageState then end");
+    });
+  }
+
+  Future<String> loadAsset() async {
+    DateTime date=DateTime(2018,11,24);
+    return await ArticleAssetProvider().getArticleFor(date);
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    loadAsset().then((onValue){
-      s = onValue;
-      setState(() {
 
-      });
-
-    });
 
     return new Scaffold(
       appBar: new AppBar(
@@ -162,8 +175,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-String s="<p><strong>Loading G...</strong></p>";
-Future<String> loadAsset() async {
-  DateTime date=DateTime(2018,11,24);
-  return await ArticleAssetProvider().getArticleFor(date);
-}
+
