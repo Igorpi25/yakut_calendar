@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
+import 'package:flutter_html/flutter_html.dart';
+import 'package:intl/intl.dart';
+import 'package:yakut_calendar/model/provider.dart';
 
 
 void main() => runApp(new MyApp());
@@ -31,26 +34,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   DateTime _currentDate=DateTime.now();
 
+  String article="Статья";
+  String summary="Описание";
+
+  List<String> monthsLong=["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь","Октябрь","Ноябрь","Декабрь"];
+  List<String> weekDaysLong=["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+
+  @override
+  void initState(){
+    super.initState();
+
+    reloadAssets();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return Container(
+        color:Colors.blue,
+        child:CustomScrollView(
       primary: true,
       slivers: <Widget>[
         SliverAppBar(
-          title: Text('SliverAppBar'),
-          backgroundColor: Colors.green,
-          expandedHeight: 200.0,
+          //title: Text('SliverAppBar'),
+          backgroundColor: Colors.blue,
+          expandedHeight: 140,
           flexibleSpace: FlexibleSpaceBar(
-            background: Container(color: Colors.blue),
+            background: Container(color: Colors.blue,child:getDateBar(),),
           ),
         ),
         SliverFixedExtentList(
           itemExtent: 150.0,
           delegate: SliverChildListDelegate(
             [
-              Container(color: Colors.red),
-              Container(color: Colors.purple),
-
+              Scaffold(body:Container(color: Colors.white,child: getSummary(),)),
             ],
           ),
         ),
@@ -59,26 +75,51 @@ class _MyHomePageState extends State<MyHomePage> {
           delegate: SliverChildListDelegate(
             [
               Scaffold(
-                  body:getCarousel()//getCarousel()
+                  body:getCarousel()
               )
             ],
           ),
         ),
+        SliverFixedExtentList(
+          itemExtent: 150.0,
+          delegate: SliverChildListDelegate(
+            [
+              Scaffold(body:Container(color: Colors.white,child: getArticle(),)),
+            ],
+          ),
+        ),
       ],
+        )
     );
   }
 
   Widget getCarousel() {
     return Container(
+      color: Colors.white,
       margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: CalendarCarousel(
         onDayPressed: (DateTime date) {
-          this.setState(() => _currentDate = date);
+          this.setState((){
+            _currentDate = date;
+            print("Duration:${_currentDate.difference(DateTime.now()).inDays}");
+            reloadAssets();
+          });
         },
+        todayButtonColor: Colors.transparent,
+        todayTextStyle: TextStyle(color:(_currentDate.difference(DateTime.now()).inDays==0)?Colors.white:Colors.blue),
         thisMonthDayBorderColor: Colors.grey,
+        weekdayTextStyle:TextStyle(color:Colors.red),
+        weekendTextStyle:TextStyle(color:Colors.red),
+        headerTextStyle:TextStyle(color:Colors.blue),
+        //selectedDayButtonColor: Colors.blue,
+        selectedDayBorderColor: Colors.blue,
+        selectedDayTextStyle: TextStyle(color:Colors.white),
         height: 420.0,
         selectedDateTime: _currentDate,
         daysHaveCircularBorder: null,
+
+        //headerText: Text('${monthsLong[_currentDate.month-1]} ${DateFormat.y().format(_currentDate)}'),
+
 
           ///null for not rendering any border, true for circular border, false for rectangular border
 //        markedDatesMap: _markedDateMap,
@@ -92,5 +133,78 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  Widget getDateBar(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          '${monthsLong[_currentDate.month-1]}',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),),
+        Text(
+          '${_currentDate.day}',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 48,
+        ),),
+        Text(
+          '${weekDaysLong[_currentDate.weekday-1]}',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),),
+      ],
+    );
+  }
+
+  Widget getSummary(){
+    return
+      Container(
+        color:Colors.blue,
+        child:Center(
+//          child: SingleChildScrollView(
+          child: Html(
+            defaultTextStyle: TextStyle(color:Colors.white),
+            data: summary,
+            //Optional parameters:
+            padding: EdgeInsets.all(8.0),
+          )
+//        )
+      )
+      );
+  }
+
+  Widget getArticle(){
+    return
+      Center(
+
+//          child: SingleChildScrollView(
+              child: Html(
+                data: article,
+                //Optional parameters:
+                padding: EdgeInsets.all(8.0),
+              )
+//          )
+      );
+  }
+
+  void reloadAssets(){
+    ArticleAssetProvider().getArticleFor(_currentDate).then((value){
+      print("aricle ready");
+      article=value;
+      setState((){});
+    });
+    ArticleAssetProvider().getSummaryFor(_currentDate).then((value){
+      print("summary ready");
+      summary=value;
+      setState((){});
+    });
+  }
+
+
+
 }
 
