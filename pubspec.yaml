@@ -21,6 +21,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_html: ^0.8.2
   flutter_calendar_carousel: ^1.2.2
+  advanced_share: ^0.1.0
 
 dev_dependencies:
   flutter_test:
