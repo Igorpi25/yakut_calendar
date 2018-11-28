@@ -49,9 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color:Colors.blue,
-        child:CustomScrollView(
+    return Scaffold(
+        //color:Colors.blue,
+        body:CustomScrollView(
       primary: true,
       slivers: <Widget>[
         SliverAppBar(
@@ -62,29 +62,27 @@ class _MyHomePageState extends State<MyHomePage> {
             background: Container(color: Colors.blue,child:getDateBar(),),
           ),
         ),
-        SliverFixedExtentList(
-          itemExtent: 150.0,
+        SliverPrototypeExtentList(
+          prototypeItem: getSummary(),
           delegate: SliverChildListDelegate(
             [
-              Scaffold(body:Container(color: Colors.white,child: getSummary(),)),
+              getSummary(),
             ],
           ),
         ),
-        SliverFixedExtentList(
-          itemExtent: 420.0,
+        SliverPrototypeExtentList(
+          prototypeItem: getCarousel(),
           delegate: SliverChildListDelegate(
             [
-              Scaffold(
-                  body:getCarousel()
-              )
+              getCarousel()
             ],
           ),
         ),
-        SliverFixedExtentList(
-          itemExtent: 150.0,
+        SliverPrototypeExtentList(
+          prototypeItem: getArticle(),
           delegate: SliverChildListDelegate(
             [
-              Scaffold(body:Container(color: Colors.white,child: getArticle(),)),
+              getArticle()
             ],
           ),
         ),
@@ -94,9 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getCarousel() {
-    return Container(
-      color: Colors.white,
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
+    return Card(
+      //color: Colors.green,
+      //margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: CalendarCarousel(
         onDayPressed: (DateTime date) {
           this.setState((){
@@ -162,33 +160,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget getSummary(){
     return
+      Card(child:
       Container(
-        color:Colors.blue,
-        child:Center(
-//          child: SingleChildScrollView(
+          //color:Colors.red,
           child: Html(
-            defaultTextStyle: TextStyle(color:Colors.white),
             data: summary,
             //Optional parameters:
             padding: EdgeInsets.all(8.0),
           )
-//        )
       )
       );
   }
 
   Widget getArticle(){
     return
-      Center(
-
-//          child: SingleChildScrollView(
-              child: Html(
-                data: article,
-                //Optional parameters:
-                padding: EdgeInsets.all(8.0),
-              )
-//          )
-      );
+      Card(child:
+          Container(
+            //color:Colors.orange,
+            child: Html(
+              data: article,
+              //Optional parameters:
+              padding: EdgeInsets.all(8.0),
+            )
+          )
+    );
   }
 
   void reloadAssets(){
