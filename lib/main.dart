@@ -62,27 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
             background: Container(color: Colors.blue,child:getDateBar(),),
           ),
         ),
-        SliverPrototypeExtentList(
-          prototypeItem: getSummary(),
+        SliverList(
           delegate: SliverChildListDelegate(
             [
               getSummary(),
-            ],
-          ),
-        ),
-        SliverPrototypeExtentList(
-          prototypeItem: getCarousel(),
-          delegate: SliverChildListDelegate(
-            [
-              getCarousel()
-            ],
-          ),
-        ),
-        SliverPrototypeExtentList(
-          prototypeItem: getArticle(),
-          delegate: SliverChildListDelegate(
-            [
-              getArticle()
+              getCarousel(),
+              getArticle(),
             ],
           ),
         ),
