@@ -166,15 +166,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 switch (node.className) {
                   case "юбилей" :
                   case "билгэ" :
-                    return SizedBox(
-                        width: double.infinity,
-                        child:DefaultTextStyle.merge(
-                          child: Text(node.text),
-                          style: TextStyle(fontStyle: FontStyle.italic,),
-                          textAlign: TextAlign.center,
+                    return Padding(
+                        padding:EdgeInsets.only(bottom:14),
+                        child:SizedBox(
+                          width: double.infinity,
+                          child:DefaultTextStyle.merge(
+                            child: Text(node.text),
+                            style: TextStyle(fontStyle: FontStyle.italic,),
+                            textAlign: TextAlign.center,
+                          )
                         )
                     );
+
                   case "подзаголовок-2" :
+                  case "подзаголовок-2 ParaOverride-32":
+                  case "подзаголовок-2 ParaOverride-37":
                     return SizedBox(
                         width: double.infinity,
                         child: Text(
@@ -184,9 +190,24 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                     );
 
+                  case "подзаголовок-2 ParaOverride-34":
+                    return SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.left,
+                        )
+                    );
+
                   case "профдень" :
                   case "примета" :
-                    return SizedBox(
+                    return Padding(
+                      padding:EdgeInsets.only(bottom:14),
+                      child:SizedBox(
                         width: double.infinity,
                         child: Text(
                           node.text,
@@ -197,6 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           textAlign: TextAlign.center,
 
                         )
+                      )
                     );
 
                   case "рубрики":
@@ -215,6 +237,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
                   case "стих-строка" :
+                  case "Основной-текст ParaOverride-30":
+                  case "Основной-текст ParaOverride-33":
+                  case "Основной-текст ParaOverride-38":
                     return SizedBox(
                         width: double.infinity,
                         child: Text(
@@ -224,11 +249,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
 
                   case "стих-строка-первая" :
+                  case "Основной-текст ParaOverride-31":
+                  case "осн-до-1-5 ParaOverride-30":
+                  case "осн-до-1-5 ParaOverride-33":
+                  case "осн-до-1-5 _idGenParaOverride-1":
+                  return SizedBox(
+                    width: double.infinity,
+                    child: Padding(
+                        child:Text(
+                          node.text,
+                          textAlign: TextAlign.center,
+                        ),
+                        padding:EdgeInsetsDirectional.only(top:14)
+                    ),
+                  );
+
+                  case "ХЫ" :
+                  case "ХЫ _idGenParaOverride-1":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
                           child:Text(
                             node.text,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                           padding:EdgeInsetsDirectional.only(top:14)
@@ -255,6 +300,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
 
                   case "подпись _idGenParaOverride-1" :
+                  case "подпись ParaOverride-7":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
@@ -267,7 +313,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             textAlign: TextAlign.right,
                           ),
-                          padding:EdgeInsetsDirectional.only(top:14)
+                          padding:EdgeInsetsDirectional.only(top:0)
                       ),
                     );
 
@@ -312,6 +358,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
 
                   case "салгыыта _idGenParaOverride-1" :
+                  case "салгыыта ParaOverride-6":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
@@ -353,6 +400,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     return DefaultTextStyle.merge(
                         child: getFormattedWidget(node.innerHtml),
                         style: TextStyle(fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.left
+                    );
+
+                  case "жирный" :
+                    return DefaultTextStyle.merge(
+                        child: getFormattedWidget(node.innerHtml),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left
                     );
 
