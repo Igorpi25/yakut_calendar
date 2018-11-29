@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
 import 'package:yakut_calendar/model/provider.dart';
 
@@ -65,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              getSummary(),
               getCarousel(),
+              getSummary(),
               getArticle(),
             ],
           ),
@@ -152,6 +154,40 @@ class _MyHomePageState extends State<MyHomePage> {
             data: summary,
             //Optional parameters:
             padding: EdgeInsets.all(8.0),
+            customRender: (node, children) {
+              if (node is dom.Element) {
+                switch (node.localName) {
+                  case "p": {
+                      switch (node.className) {
+                        case"профдень" :
+                          return SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                node.text,
+                                style: TextStyle(fontWeight: FontWeight.bold,),
+                                textAlign: TextAlign.center,
+                              )
+                          );
+
+                        case"юбилей" :
+                          return SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                node.text,
+                                style: TextStyle(fontWeight: FontWeight.bold,),
+                                textAlign: TextAlign.center,
+                              )
+                          );
+                      }
+
+                      return Text(node.text,);
+                  }
+
+                }
+
+                return null;
+              }
+            },
           )
       )
       );
@@ -166,6 +202,65 @@ class _MyHomePageState extends State<MyHomePage> {
               data: article,
               //Optional parameters:
               padding: EdgeInsets.all(8.0),
+              customRender: (node, children) {
+                if (node is dom.Element) {
+                  switch (node.localName) {
+                    case "p": {
+                      switch (node.className) {
+                        case "подзаголовок-2" :
+                          return SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                node.text,
+                                style: TextStyle(fontWeight: FontWeight.bold,),
+                                textAlign: TextAlign.center,
+                              )
+                          );
+
+                        case "стих-строка" :
+                          return SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                node.text,
+                                textAlign: TextAlign.center,
+                              )
+                          );
+
+                        case "стих-первая-строка" :
+                          return SizedBox(
+                              width: double.infinity,
+                              child: Padding(
+                                  child:Text(
+                                    node.text,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  padding:EdgeInsetsDirectional.only(top:14)
+                              ),
+
+                          );
+                        case "подпись" :
+                          return SizedBox(
+                            width: double.infinity,
+                            child: Padding(
+                                child:Text(
+                                  node.text,
+                                  textAlign: TextAlign.right,
+                                ),
+                                padding:EdgeInsetsDirectional.only(top:14)
+                            ),
+
+                          );
+
+                      }
+
+                      return Text(node.text,);
+                    }
+
+                  }
+
+                  return null;
+                }
+              },
             )
           )
     );
