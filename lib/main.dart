@@ -185,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
 
                   case "профдень" :
+                  case "примета" :
                     return SizedBox(
                         width: double.infinity,
                         child: Text(
@@ -241,6 +242,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           child:Text(
                             node.text,
                             textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: "SKH_VERDANA",
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              //fontWeight: FontWeight.bold,
+                            ),
                           ),
                           padding:EdgeInsetsDirectional.only(top:14)
                       ),
@@ -264,12 +272,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
 
                   case "салгыыта ParaOverride-11" :
-
-                    new RotationTransition(
-                      turns: new AlwaysStoppedAnimation(15 / 360),
-                      child: new Text("Lorem ipsum"),
-                    )
-
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
@@ -278,6 +280,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child:Text(
                               node.text,
                               style: TextStyle(
+                                fontFamily: "SKH_VERDANA",
                                 fontStyle: FontStyle.italic,
                                 fontSize: 12,
                                 //fontWeight: FontWeight.bold,
@@ -289,6 +292,42 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
 
+                  case "саҕаланыыта":
+                  case "саҕаланыыта ParaOverride-28" :
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child:Text(
+                            node.text,
+                            style: TextStyle(
+                              fontFamily: "SKH_VERDANA",
+                              fontStyle: FontStyle.italic,
+                              fontSize: 12,
+                              //fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                          padding:EdgeInsetsDirectional.only(top:0)
+                      ),
+                    );
+
+                  case "салгыыта _idGenParaOverride-1" :
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child:Text(
+                            node.text,
+                            style: TextStyle(
+                              fontFamily: "SKH_VERDANA",
+                              fontStyle: FontStyle.italic,
+                              fontSize: 12,
+                              //fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
+                          padding:EdgeInsetsDirectional.only(top:0)
+                      ),
+                    );
 
                   default :
                     return SizedBox(
