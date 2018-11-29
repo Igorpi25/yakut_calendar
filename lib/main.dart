@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  DateTime _currentDate=DateTime.now();
+  DateTime _currentDate=DateTime.parse("2019-02-01");
 
   String article="Статья";
   String summary="Описание";
@@ -68,8 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
           delegate: SliverChildListDelegate(
             [
               getCarousel(),
-              getSummary(),
-              getArticle(),
+              getContent(summary),
+              getContent(article),
             ],
           ),
         ),
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onDayPressed: (DateTime date) {
           this.setState((){
             _currentDate = date;
-            print("Duration:${_currentDate.difference(DateTime.now()).inDays}");
+            //print("Duration:${_currentDate.difference(DateTime.now()).inDays}");
             reloadAssets();
           });
         },
@@ -145,125 +145,190 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget getSummary(){
-    return
-      Card(child:
-      Container(
-          //color:Colors.red,
-          child: Html(
-            data: summary,
-            //Optional parameters:
-            padding: EdgeInsets.all(8.0),
-            customRender: (node, children) {
-              if (node is dom.Element) {
-                switch (node.localName) {
-                  case "p": {
-                      switch (node.className) {
-                        case"профдень" :
-                          return SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                node.text,
-                                style: TextStyle(fontWeight: FontWeight.bold,),
-                                textAlign: TextAlign.center,
-                              )
-                          );
-
-                        case"юбилей" :
-                          return SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                node.text,
-                                style: TextStyle(fontWeight: FontWeight.bold,),
-                                textAlign: TextAlign.center,
-                              )
-                          );
-                      }
-
-                      return Text(node.text,);
-                  }
-
-                }
-
-                return null;
-              }
-            },
-          )
-      )
+  Widget getContent(String data){
+    return Card(
+        child: Padding(
+          padding:EdgeInsets.all(14.0),
+          child:getFormattedWidget(data),
+        )
       );
   }
 
-  Widget getArticle(){
+  Widget getFormattedWidget(String data){
     return
-      Card(child:
-          Container(
-            //color:Colors.orange,
-            child: Html(
-              data: article,
-              //Optional parameters:
-              padding: EdgeInsets.all(8.0),
-              customRender: (node, children) {
-                if (node is dom.Element) {
-                  switch (node.localName) {
-                    case "p": {
-                      switch (node.className) {
-                        case "подзаголовок-2" :
-                          return SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                node.text,
-                                style: TextStyle(fontWeight: FontWeight.bold,),
-                                textAlign: TextAlign.center,
-                              )
-                          );
+      Html(
+        data: data,
+        padding: EdgeInsets.all(0.0),
+        customRender: (node, children) {
+          if (node is dom.Element) {
+            switch (node.localName) {
+              case "p": {
+                switch (node.className) {
+                  case "юбилей" :
+                  case "билгэ" :
+                    return SizedBox(
+                        width: double.infinity,
+                        child:DefaultTextStyle.merge(
+                          child: Text(node.text),
+                          style: TextStyle(fontStyle: FontStyle.italic,),
+                          textAlign: TextAlign.center,
+                        )
+                    );
+                  case "подзаголовок-2" :
+                    return SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          style: TextStyle(fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
+                        )
+                    );
 
-                        case "стих-строка" :
-                          return SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                node.text,
-                                textAlign: TextAlign.center,
-                              )
-                          );
+                  case "профдень" :
+                    return SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "SKH_VERDANA",
+                          ),
+                          textAlign: TextAlign.center,
 
-                        case "стих-первая-строка" :
-                          return SizedBox(
-                              width: double.infinity,
-                              child: Padding(
-                                  child:Text(
-                                    node.text,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding:EdgeInsetsDirectional.only(top:14)
-                              ),
+                        )
+                    );
 
-                          );
-                        case "подпись" :
-                          return SizedBox(
-                            width: double.infinity,
-                            child: Padding(
-                                child:Text(
-                                  node.text,
-                                  textAlign: TextAlign.right,
-                                ),
-                                padding:EdgeInsetsDirectional.only(top:14)
+                  case "рубрики":
+                    return SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          style: TextStyle(
+                            //fontWeight: FontWeight.bold,
+                              fontFamily: "SKH_VERDANA",
+                              decoration: TextDecoration.underline
+                          ),
+                          textAlign: TextAlign.right,
+                        )
+                    );
+
+
+                  case "стих-строка" :
+                    return SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          textAlign: TextAlign.center,
+                        )
+                    );
+
+                  case "стих-строка-первая" :
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child:Text(
+                            node.text,
+                            textAlign: TextAlign.center,
+                          ),
+                          padding:EdgeInsetsDirectional.only(top:14)
+                      ),
+                    );
+
+                  case "подпись" :
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child:Text(
+                            node.text,
+                            textAlign: TextAlign.right,
+                          ),
+                          padding:EdgeInsetsDirectional.only(top:14)
+                      ),
+                    );
+
+                  case "подпись _idGenParaOverride-1" :
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child:Text(
+                            node.text,
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
                             ),
+                            textAlign: TextAlign.right,
+                          ),
+                          padding:EdgeInsetsDirectional.only(top:14)
+                      ),
+                    );
 
-                          );
+                  case "салгыыта ParaOverride-11" :
 
-                      }
+                    new RotationTransition(
+                      turns: new AlwaysStoppedAnimation(15 / 360),
+                      child: new Text("Lorem ipsum"),
+                    )
 
-                      return Text(node.text,);
-                    }
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child: RotationTransition(
+                            turns: new AlwaysStoppedAnimation(180 / 360),
+                            child:Text(
+                              node.text,
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          padding:EdgeInsetsDirectional.only(top:14)
+                      ),
+                    );
 
-                  }
 
-                  return null;
+                  default :
+                    return SizedBox(
+                        width: double.infinity,
+                        child: (children.length==0)?Text(
+                          node.text,
+                          textAlign: TextAlign.justify,
+                        ):
+                        DefaultTextStyle.merge(
+                            child:getFormattedWidget(node.innerHtml),
+                            textAlign: TextAlign.justify,
+                        )
+                    );
                 }
-              },
-            )
-          )
-    );
+
+
+
+              }break;
+
+              case "span": {
+                switch (node.className) {
+                  case "CharOverride-21" :
+                    return DefaultTextStyle.merge(
+                        child: getFormattedWidget(node.innerHtml),
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.left
+                    );
+
+                }
+
+              }break;
+
+            }
+
+            return null;
+
+          }
+        },
+      );
+
   }
 
   void reloadAssets(){
