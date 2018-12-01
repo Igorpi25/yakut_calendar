@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SliverAppBar(
           //title: Text('SliverAppBar'),
           backgroundColor: Colors.blue,
-          expandedHeight: 180,
+          expandedHeight: 130,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(color: Colors.blue,child:getDateBar(),),
           ),
@@ -67,8 +67,17 @@ class _MyHomePageState extends State<MyHomePage> {
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              getCarousel(),
-              getContent(summary),
+//              Padding(
+//                padding: EdgeInsets.only(top: 0),
+//                child:Image.asset(
+//                  "assets/images/pattern_1.png",
+//                  fit: BoxFit.cover,
+//                  color: Colors.blue,
+//                ),
+//
+//              ),
+              (summary.isNotEmpty)?getContent(summary):Container(),
+              //getCarousel(),
               getContent(article),
             ],
           ),
@@ -99,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //selectedDayButtonColor: Colors.blue,
         selectedDayBorderColor: Colors.blue,
         selectedDayTextStyle: TextStyle(color:Colors.white),
-        height: 420.0,
+        height: 380.0,
         selectedDateTime: _currentDate,
         daysHaveCircularBorder: null,
 
@@ -144,15 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             fontSize: 18,
           ),),
-        Padding(
-          padding: EdgeInsets.only(top: 20),
-          child:Image.asset(
-            "assets/images/pattern_1.png",
-            fit: BoxFit.cover,
-            color: Colors.white,
-          ),
 
-        ),
       ],
     );
   }
@@ -448,6 +449,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
 
                 }
+
+              }break;
+
+              case "pattern": {
+                print("getFormattedWidget case=pattern");
+                return Padding(
+                  padding: EdgeInsets.all(0),
+                  child:Image.asset(
+                    "assets/images/pattern_1.png",
+                    fit: BoxFit.cover,
+                    color: Colors.black,
+                  ),
+
+                );
 
               }break;
 

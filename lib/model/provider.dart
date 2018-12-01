@@ -17,7 +17,11 @@ class ArticleAssetProvider implements ArticleRepository{
       element=getElementWithTag(value,"article");
     }).catchError((error){
       print("I catch error");
-      element=getElementWithTag("<article>Контент не найден</article>","article");
+      element=getElementWithTag("<dummy></dummy>","dummy");
+    }).whenComplete((){
+      if(element==null||element.children.length==0){
+        return "";
+      }
     });
 
     return element.innerHtml;
@@ -32,7 +36,11 @@ class ArticleAssetProvider implements ArticleRepository{
       element=getElementWithTag(value,"summary");
     }).catchError((error){
       print("I catch error");
-      element=getElementWithTag("<summary>Короткое описание не найдено</summary>","summary");
+      element=getElementWithTag("<dummy></dummy>","dummy");
+    }).whenComplete((){
+      if(element==null||element.children.length==0){
+        return "";
+      }
     });
 
 
@@ -49,7 +57,7 @@ class ArticleAssetProvider implements ArticleRepository{
 
     Element article=document.getElementsByTagName(tagname).elementAt(0);
 
-    print("getElementWithTag article="+article.innerHtml);
+    print("getElementWithTag tagname=$tagname: "+article.innerHtml);
 
     return article;
   }
