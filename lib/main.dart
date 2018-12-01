@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String article="Статья";
   String summary="Описание";
 
-  List<String> monthsLong=["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь","Октябрь","Ноябрь","Декабрь"];
+  List<String> monthsLong=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Бала5ан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
   List<String> weekDaysLong=["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
 
   @override
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SliverAppBar(
           //title: Text('SliverAppBar'),
           backgroundColor: Colors.blue,
-          expandedHeight: 130,
+          expandedHeight: 140,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(color: Colors.blue,child:getDateBar(),),
           ),
@@ -141,12 +141,49 @@ class _MyHomePageState extends State<MyHomePage> {
               fontSize: 18,
             ),),
         ),
-        Text(
-          '${_currentDate.day}',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 48,
-        ),),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:[
+            Expanded(
+              flex: 1,
+              child:IconButton(
+                color:Colors.white,
+                alignment: Alignment.centerRight,
+                iconSize: 48,
+                icon: Icon(Icons.arrow_left),
+                tooltip: 'Previous',
+                onPressed: () { setState(() {
+                  _currentDate=_currentDate.add(-Duration(days:1));
+                  print("Previous pressed");
+                  reloadAssets();
+                });},
+              ),
+            ),
+            Text(
+              '${_currentDate.day}',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 48,
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child:IconButton(
+                color:Colors.white,
+                alignment: Alignment.centerLeft,
+                iconSize: 48,
+                icon: Icon(Icons.arrow_right),
+                tooltip: 'Next',
+                onPressed: () { setState(() {
+                  _currentDate=_currentDate.add(Duration(days:1));
+                  print("Next pressed");
+                  reloadAssets();
+                });},
+              ),
+            ),
+          ]
+        ),
         Text(
           '${weekDaysLong[_currentDate.weekday-1]}',
           style: TextStyle(
