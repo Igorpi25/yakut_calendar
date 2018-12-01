@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SliverAppBar(
           //title: Text('SliverAppBar'),
           backgroundColor: Colors.blue,
-          expandedHeight: 140,
+          expandedHeight: 180,
           flexibleSpace: FlexibleSpaceBar(
             background: Container(color: Colors.blue,child:getDateBar(),),
           ),
@@ -123,12 +123,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          '${monthsLong[_currentDate.month-1]}',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),),
+        Padding(
+          padding:EdgeInsets.only(top: 20),
+          child:Text(
+            '${monthsLong[_currentDate.month-1]}',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),),
+        ),
         Text(
           '${_currentDate.day}',
           style: TextStyle(
@@ -141,6 +144,15 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             fontSize: 18,
           ),),
+        Padding(
+          padding: EdgeInsets.only(top: 20),
+          child:Image.asset(
+            "assets/images/pattern_1.png",
+            fit: BoxFit.cover,
+            color: Colors.white,
+          ),
+
+        ),
       ],
     );
   }
