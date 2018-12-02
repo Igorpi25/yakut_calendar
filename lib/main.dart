@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:yakut_calendar/model/provider.dart';
 
 
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -61,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.blue,
           expandedHeight: 140,
           flexibleSpace: FlexibleSpaceBar(
-            background: Container(color: Colors.blue,child:getDateBar(),),
+            background: Container(color: Colors.blue,child:getHeader(),),
           ),
         ),
         SliverList(
@@ -125,6 +126,31 @@ class _MyHomePageState extends State<MyHomePage> {
 //            child: Text('Custom Header'),
 //          ),
       ),
+    );
+  }
+
+  Widget getHeader(){
+    return Row(
+      children:[
+        Expanded(
+          flex: 1,
+          child:Container(
+          //    color:Colors.red
+          ),
+        ),
+        Container(
+          width: 150,
+          child:getDateBar(),
+        ),
+        Expanded(
+          flex:1,
+          child:Container(
+              //color:Colors.orange,
+              alignment: AlignmentDirectional.bottomEnd,
+              child:getDatePicker(),
+          ),
+        ),
+      ]
     );
   }
 
@@ -194,6 +220,36 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
+
+  Widget getDatePicker(){
+    return IconButton(
+      color:Colors.white,
+      alignment: Alignment.centerRight,
+      //iconSize: 48,
+      icon: Icon(Icons.calendar_today),
+      tooltip: 'Previous',
+      onPressed: () {
+        selectDateFromPicker();
+        },
+    );
+  }
+
+  void selectDateFromPicker()async{
+
+
+
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: _currentDate,
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2020)
+    );
+    if(picked != null) setState(() {
+      _currentDate=picked;
+      reloadAssets();
+    });
+  }
+
 
   Widget getContent(String data){
     return Card(
