@@ -46,6 +46,7 @@ flutter:
   assets:
     - assets/dummy_yakuts_text.html
     - assets/images/
+    - assets/images/winter_1.jpg
     - assets/2018/11/24.html
     - assets/2018/11/25.html
     - assets/2019/1/

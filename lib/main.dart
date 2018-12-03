@@ -145,28 +145,41 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getHeader(){
-    return Row(
-      children:[
-        Expanded(
-          flex: 1,
-          child:Container(
-          //    color:Colors.red
+    return
+      Stack(
+        fit:StackFit.expand,
+        alignment: AlignmentDirectional.center,
+        children:[
+          Image.asset(
+              'assets/images/winter_1.jpg',
+              fit: BoxFit.cover
+            ,
           ),
-        ),
-        Container(
-          width: 150,
-          child:getDateBar(),
-        ),
-        Expanded(
-          flex:1,
-          child:Container(
-              //color:Colors.orange,
-              alignment: AlignmentDirectional.bottomEnd,
-              child:getDatePicker(),
-          ),
-        ),
-      ]
-    );
+          Row(
+            children:[
+              Expanded(
+                flex: 1,
+                child:Container(
+
+                  //child:Image.asset('assets/images/winter_1.jpg', fit: BoxFit.cover),
+                )
+              ),
+              Container(
+                width: 150,
+                child:getDateBar(),
+              ),
+              Expanded(
+                flex:1,
+                child:Container(
+                    //color:Colors.orange,
+                    alignment: AlignmentDirectional.bottomEnd,
+                    child:getDatePicker(),
+                ),
+              ),
+            ]
+          )
+          ]
+      );
   }
 
   Widget getDateBar(){
@@ -249,8 +262,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
-
   void selectDateFromPicker()async{
 
     print(DateTime.parse("2018-10-30").add(Duration(days:38)).toString());
@@ -270,7 +281,6 @@ class _MyHomePageState extends State<MyHomePage> {
       reloadAssets();
     });
   }
-
 
   Widget getContent(String data){
     return Card(
