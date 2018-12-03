@@ -4,17 +4,32 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show C
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
+import 'package:yakut_calendar/localization_sah.dart';
 import 'package:yakut_calendar/model/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 
-void main() => runApp(new MyApp());
+void main() => runApp(new MyApp(
+
+));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        const LocalizationsDelegateSah(),
+      ],
+      supportedLocales: [
+        const Locale('ru', 'RU'), // English
+        const Locale('en', 'US'), // English
+        const Locale('sah', 'RU'), // English
+        // ... other locales the app supports
+      ],
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
@@ -234,13 +249,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
+
   void selectDateFromPicker()async{
 
+    print(DateTime.parse("2018-10-30").add(Duration(days:38)).toString());
+
+    print(kSupportedLanguages);
 
 
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: _currentDate,
+        locale: Locale("sah"),
         firstDate: new DateTime(2018),
         lastDate: new DateTime(2020)
     );
@@ -581,7 +602,6 @@ class _MyHomePageState extends State<MyHomePage> {
       setState((){});
     });
   }
-
 
 
 }
