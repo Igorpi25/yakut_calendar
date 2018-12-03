@@ -193,6 +193,12 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
+              shadows: [
+                Shadow(
+                  //offset: Offset(4,4),
+                  blurRadius: 8
+                )
+              ]
             ),),
         ),
         Row(
@@ -219,6 +225,12 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 48,
+                shadows: [
+                  Shadow(
+                    //offset: Offset(4,4),
+                      blurRadius: 8
+                  )
+                ]
               ),
             ),
             Expanded(
@@ -243,6 +255,12 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
+            shadows: [
+              Shadow(
+                //offset: Offset(4,4),
+                  blurRadius: 8
+              )
+            ]
           ),),
 
       ],
