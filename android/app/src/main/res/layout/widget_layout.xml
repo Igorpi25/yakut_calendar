@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <StackView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/stack_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:loopViews="true" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,26 +18,23 @@
             android:gravity="right">
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/empty_view"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
 
                 android:textColor="#ffffff"
-                android:text="Олунньу 1 кунэ"
-                android:textSize="20dp" />
+                android:text="Атырдьах ыйа 1"
+                android:textSize="24dp" />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/weekday"
+                android:id="@+id/subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-
                 android:textColor="#ffffff"
-                android:text="Пятница"
-                android:textSize="20dp" />
-
-
+                android:text="Бээтинсэ, 2019"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
