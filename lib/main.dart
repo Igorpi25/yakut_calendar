@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  DateTime _currentDate=DateTime.parse("2019-02-01");
+  DateTime _currentDate=DateTime.now();//.parse("2019-02-01");
 
   String article="Статья";
   String summary="Описание";
