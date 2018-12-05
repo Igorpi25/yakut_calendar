@@ -40,4 +40,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.newData)
     }
     
+    func getSummary(){
+        
+        let bundle = Bundle.main
+        
+        
+        
+        //let key = lookupKeyForAsset("icons/heart.png")
+        
+        let path = bundle.path(forResource: key, ofType: "txt")
+        
+        
+        
+    }
+    
 }
