@@ -23,6 +23,7 @@
 		CE65B84E21B6DDE9007137E8 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE65B84D21B6DDE9007137E8 /* TodayViewController.swift */; };
 		CE65B85121B6DDE9007137E8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE65B84F21B6DDE9007137E8 /* MainInterface.storyboard */; };
 		CE65B85521B6DDE9007137E8 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE65B84821B6DDE9007137E8 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CEECC5B121B7ACD3001D9EA7 /* Flutter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740EEBA1CF902C7004384FC /* Flutter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		CE65B85021B6DDE9007137E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		CE65B85221B6DDE9007137E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE65B85B21B6E607007137E8 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		CEECC5AF21B7AC7D001D9EA7 /* Flutter */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Flutter; sourceTree = "<group>"; };
+		CEECC5B221B7B1C7001D9EA7 /* Runner */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Runner; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEECC5B121B7ACD3001D9EA7 /* Flutter.framework in Frameworks */,
 				CE65B84B21B6DDE9007137E8 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +173,8 @@
 		CE65B84921B6DDE9007137E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEECC5B221B7B1C7001D9EA7 /* Runner */,
+				CEECC5AF21B7AC7D001D9EA7 /* Flutter */,
 				CE65B84A21B6DDE9007137E8 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -646,6 +652,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6NEQF4AL4Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flutter",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -676,6 +686,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6NEQF4AL4Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flutter",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -703,6 +717,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6NEQF4AL4Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flutter",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

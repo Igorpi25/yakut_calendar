@@ -9,6 +9,8 @@
 import UIKit
 import NotificationCenter
 
+import Flutter
+
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var widget_title: UILabel!
@@ -44,12 +46,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let bundle = Bundle.main
         
-        
-        
-        //let key = lookupKeyForAsset("icons/heart.png")
+//        let key = FlutterPluginRegistrar
+//        lookupKeyForAsset("icons/heart.png")
         
         let path = bundle.path(forResource: key, ofType: "txt")
-        
         
         
     }
