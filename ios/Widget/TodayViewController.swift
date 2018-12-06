@@ -10,6 +10,7 @@ import UIKit
 import NotificationCenter
 
 import Flutter
+import SwiftSoup
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
@@ -52,29 +53,28 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         print("Igor s="+s)
         
-        guard let data = s.data(using: String.Encoding.unicode) else { return }
         
-        try? widget_title.attributedText = NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+        let s_summary = getSummaryTextFromHtml(html:s)
+        
+        widget_title.text=s_summary
+        
+//        guard let data = s_summary.data(using: String.Encoding.unicode) else { return }
+//        try? widget_title.attributedText = NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
         
     }
     
     func getSummaryTextFromHtml(html: String)->String{
-//        do{
-//            let doc: Document = try SwiftSoup.parse("...")
-//            let links: Elements = try doc.select("a[href]") // a with href
-//            let pngs: Elements = try doc.select("img[src$=.png]")
-//
-//            // img with src ending .png
-//            let masthead: Element? = try doc.select("div.masthead").first()
-//
-//            // div with class=masthead
-//            let resultLinks: Elements? = try doc.select("h3.r > a") // direct a after h3
-//        } catch Exception.Error(let type, let message){
-//            print(message)
-//        } catch {
-//            print("error")
-//        }
-        return "asdad"
+        do{
+            let doc: Document = try SwiftSoup.parse(html)
+            let summary: Elements = try doc.getElementsByTag("summary")
+           
+            return try summary.text()
+        } catch Exception.Error(let type, let message){
+            print("Igor getSummaryTextFromHtml message:"+message)
+            return ""
+        } catch {
+            return ""
+        }
     }
     
     func readDataFromFile(file:String)-> String{
