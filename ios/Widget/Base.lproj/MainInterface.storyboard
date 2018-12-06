@@ -44,6 +44,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="90"/>
                     <connections>
+                        <outlet property="widget_sutitle" destination="vNI-VS-gCL" id="sTI-fj-o5u"/>
                         <outlet property="widget_title" destination="GcN-lo-r42" id="Gu8-8I-Vad"/>
                     </connections>
                 </viewController>

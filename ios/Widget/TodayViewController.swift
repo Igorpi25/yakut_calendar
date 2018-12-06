@@ -16,6 +16,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var widget_title: UILabel!
     
+    @IBOutlet weak var widget_sutitle: UILabel!
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         
         let date = Date()
@@ -56,7 +59,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let s_summary = getSummaryTextFromHtml(html:s)
         
-        widget_title.text=s_summary
+        widget_sutitle.text=s_summary
         
 //        guard let data = s_summary.data(using: String.Encoding.unicode) else { return }
 //        try? widget_title.attributedText = NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
