@@ -345,6 +345,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                     );
 
+                  case "подзаголовок-2 курсив" :
+                    return SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
+                          textAlign: TextAlign.center,
+                        )
+                    );
+
                   case "подзаголовок-2 ParaOverride-34":
                     return SizedBox(
                         width: double.infinity,

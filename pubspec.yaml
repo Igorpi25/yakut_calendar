@@ -51,6 +51,7 @@ flutter:
     - assets/2018/11/25.html
     - assets/2019/1/
     - assets/2019/2/
+    - assets/2019/3/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
