@@ -41,8 +41,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         widget_title.text = months[month_index-1]+" "+String(day)
         widget_sutitle.text = weekdays[weekday_index-1]+", "+String(year)
         widget_summary.text = getSummary(key:"flutter_assets/assets/"+String(year)+"/"+String(month_index)+"/"+String(day))
-        
-        widget_image.image = getImageFromFile(key:"flutter_assets/assets/images/winter_1.jpg")
+        //widget_image.image = getImageFromFile(key:"flutter_assets/assets/images/winter_1.jpg")
         
     }
     
@@ -56,6 +55,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         widget_image.addGestureRecognizer(tapGesture)
         // make sure imageView can be interacted with by user
         widget_image.isUserInteractionEnabled = true
+        
+        
+       
+        let padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        
     }
     
     @objc func imageTapped(gesture: UIGestureRecognizer) {
