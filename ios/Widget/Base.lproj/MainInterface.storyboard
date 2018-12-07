@@ -21,30 +21,33 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-3p-jfh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бала5ан ыйа 30" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
-                                <rect key="frame" x="0.0" y="16" width="320" height="28"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бала5ан ыйа 30" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
+                                <rect key="frame" x="16" y="16" width="288" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Dge-b7-UnX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Баскыьыанньа, 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNI-VS-gCL">
-                                <rect key="frame" x="0.0" y="44" width="320" height="20.333333333333329"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Баскыьыанньа, 2019" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNI-VS-gCL">
+                                <rect key="frame" x="16" y="44" width="288" height="20.333333333333329"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.329999999999998" id="lrh-SF-zWF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary asdasd asdasd asd asd asdasd asd asdasd asd asdas asd asd asdas das asd a ddaskjdnjkfjksdb  bkjbsfjwekhbf habsjdh " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-uI-aP3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary asdasd asdasd asd asd asdasd asd asdasd asd asdas asd asd asdas das asd a ddaskjdnjkfjksdb  bkjbsfjwekhbf habsjdh " textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-uI-aP3">
                                 <rect key="frame" x="16" y="64.333333333333314" width="288" height="79.666666666666686"/>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                         </subviews>
                         <constraints>
@@ -55,11 +58,11 @@
                             <constraint firstItem="vNI-VS-gCL" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" id="XXd-qh-cXm"/>
                             <constraint firstItem="ln2-3p-jfh" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="Y03-E4-HUm"/>
                             <constraint firstItem="ln2-3p-jfh" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="aV9-Gn-Cwq"/>
-                            <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="csX-nP-13A"/>
-                            <constraint firstItem="vNI-VS-gCL" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="ecf-wV-Z7I"/>
-                            <constraint firstItem="vNI-VS-gCL" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="ivQ-bt-ZdP"/>
+                            <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="16" id="csX-nP-13A"/>
+                            <constraint firstItem="vNI-VS-gCL" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="16" id="ecf-wV-Z7I"/>
+                            <constraint firstItem="vNI-VS-gCL" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-16" id="ivQ-bt-ZdP"/>
                             <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="KmN-uI-aP3" secondAttribute="bottom" constant="16" id="kQy-SB-Gcd"/>
-                            <constraint firstItem="GcN-lo-r42" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="rfZ-UV-GYl"/>
+                            <constraint firstItem="GcN-lo-r42" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-16" id="rfZ-UV-GYl"/>
                             <constraint firstItem="KmN-uI-aP3" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-16" id="wuc-CB-0Pt"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" constant="16" id="x4s-Qc-7IQ"/>
                         </constraints>

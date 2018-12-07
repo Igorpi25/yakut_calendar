@@ -43,6 +43,22 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(TodayViewController.imageTapped(gesture:)))
+        
+        // add it to the image view;
+        widget_image.addGestureRecognizer(tapGesture)
+        // make sure imageView can be interacted with by user
+        widget_image.isUserInteractionEnabled = true
+    }
+    
+    @objc func imageTapped(gesture: UIGestureRecognizer) {
+        // if the tapped view is a UIImageView then set it to imageview
+        if (gesture.view as? UIImageView) != nil {
+            print("Igor Image Tapped")
+            //Here you can initiate your new ViewController
+            
+            openHostApp()
+        }
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
@@ -118,4 +134,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
     }
     
+    @IBAction func openHostApp()
+    {
+        if let url = URL(string: "localHost://")
+        {
+            self.extensionContext?.open(url, completionHandler: {success in print("called url complete handler: \(success)")})
+        }
+    }
 }
