@@ -14,6 +14,10 @@ import SwiftSoup
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
+    let months=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Бала5ан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
+    
+    let weekdays=["Бас-ньа","Бэн-ник","Оп-ньук","Сэрэдэ","Чэппиэр","Бээт-сэ","Субуота"];
+    
     @IBOutlet weak var widget_title: UILabel!
     
     @IBOutlet weak var widget_sutitle: UILabel!
@@ -27,16 +31,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let date = Date()
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        let seconds = calendar.component(.second, from: date)
         
-        //widget_title.text = "\(hour):\(minutes):\(seconds)"
+        let month_index = calendar.component(.month, from: date)
+        let weekday_index = calendar.component(.weekday, from: date)
+        let day = calendar.component(.day, from: date)
+        let year = calendar.component(.year, from: date)
         
-        getSummary()
         
-        setBackgroundImageFromFile(file:"flutter_assets/assets/images/winter_1.jpg")
-
+        widget_title.text = months[month_index-1]+" "+String(day)
+        widget_sutitle.text = weekdays[weekday_index-1]+", "+String(year)
+        widget_summary.text = getSummary(key:"flutter_assets/assets/"+String(year)+"/"+String(month_index)+"/"+String(day))
+        
+        widget_image.image = getImageFromFile(key:"flutter_assets/assets/images/winter_1.jpg")
+        
     }
     
     override func viewDidLoad() {
@@ -81,21 +88,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         completionHandler(NCUpdateResult.newData)
     }
     
-    func getSummary(){
+    func getSummary(key:String)->String{
         
-        let key = "flutter_assets/assets/2019/1/1"
-
         let s = readDataFromFile(file: key)
-        
-        print("Igor s="+s)
-        
         
         let s_summary = getSummaryTextFromHtml(html:s)
         
-        widget_summary.text=s_summary
+        return s_summary
         
-//        guard let data = s_summary.data(using: String.Encoding.unicode) else { return }
-//        try? widget_title.attributedText = NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
         
     }
     
@@ -127,10 +127,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
     
-    func setBackgroundImageFromFile(file:String){
-        let filepath = Bundle.main.path(forResource: file, ofType: nil)
+    func getImageFromFile(key:String)->UIImage!{
+        let filepath = Bundle.main.path(forResource: key, ofType: nil)
         
-        widget_image.image = UIImage(contentsOfFile: filepath!)
+        return UIImage(contentsOfFile: filepath!)
         
     }
     
