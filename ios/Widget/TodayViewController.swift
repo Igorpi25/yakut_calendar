@@ -20,6 +20,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var widget_summary: UILabel!
     
+    @IBOutlet weak var widget_image: UIImageView!
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         
         let date = Date()
@@ -31,6 +34,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         //widget_title.text = "\(hour):\(minutes):\(seconds)"
         
         getSummary()
+        
+        setBackgroundImageFromFile(file:"flutter_assets/assets/images/winter_1.jpg")
 
     }
     
@@ -104,6 +109,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             print("File Read Error for file \(file)")
             return "Нету2"
         }
+    }
+    
+    func setBackgroundImageFromFile(file:String){
+        let filepath = Bundle.main.path(forResource: file, ofType: nil)
+        
+        widget_image.image = UIImage(contentsOfFile: filepath!)
+        
     }
     
 }

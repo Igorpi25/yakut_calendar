@@ -25,6 +25,7 @@
 		CE65B84E21B6DDE9007137E8 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE65B84D21B6DDE9007137E8 /* TodayViewController.swift */; };
 		CE65B85121B6DDE9007137E8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE65B84F21B6DDE9007137E8 /* MainInterface.storyboard */; };
 		CE65B85521B6DDE9007137E8 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CE65B84821B6DDE9007137E8 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CECBFEDA21BA1FCA0024D4FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		CEECC5BE21B857AB001D9EA7 /* flutter_assets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5378251FAA1A9400D5DBA9 /* flutter_assets */; };
 /* End PBXBuildFile section */
 
@@ -328,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEECC5BE21B857AB001D9EA7 /* flutter_assets in Resources */,
+				CECBFEDA21BA1FCA0024D4FB /* Assets.xcassets in Resources */,
 				CE65B85121B6DDE9007137E8 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

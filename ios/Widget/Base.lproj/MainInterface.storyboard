@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-3p-jfh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бала5ан ыйа 30" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
                                 <rect key="frame" x="0.0" y="16" width="320" height="28"/>
                                 <constraints>
@@ -46,8 +49,12 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="KmN-uI-aP3" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="16" id="ADb-Co-Jyx"/>
+                            <constraint firstItem="ln2-3p-jfh" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="TMQ-8E-hQr"/>
+                            <constraint firstItem="ln2-3p-jfh" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" id="Wpq-rQ-akG"/>
                             <constraint firstItem="KmN-uI-aP3" firstAttribute="top" secondItem="vNI-VS-gCL" secondAttribute="bottom" id="XNc-gW-CqP"/>
                             <constraint firstItem="vNI-VS-gCL" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" id="XXd-qh-cXm"/>
+                            <constraint firstItem="ln2-3p-jfh" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="Y03-E4-HUm"/>
+                            <constraint firstItem="ln2-3p-jfh" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="aV9-Gn-Cwq"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="csX-nP-13A"/>
                             <constraint firstItem="vNI-VS-gCL" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="ecf-wV-Z7I"/>
                             <constraint firstItem="vNI-VS-gCL" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="ivQ-bt-ZdP"/>
@@ -62,6 +69,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="160"/>
                     <connections>
+                        <outlet property="widget_image" destination="ln2-3p-jfh" id="hLL-BE-c3v"/>
                         <outlet property="widget_summary" destination="KmN-uI-aP3" id="jfs-8f-azb"/>
                         <outlet property="widget_sutitle" destination="vNI-VS-gCL" id="sTI-fj-o5u"/>
                         <outlet property="widget_title" destination="GcN-lo-r42" id="Gu8-8I-Vad"/>
