@@ -18,6 +18,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var widget_sutitle: UILabel!
     
+    @IBOutlet weak var widget_summary: UILabel!
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -27,7 +28,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
         
-        widget_title.text = "\(hour):\(minutes):\(seconds)"
+        //widget_title.text = "\(hour):\(minutes):\(seconds)"
         
         getSummary()
 
@@ -59,7 +60,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let s_summary = getSummaryTextFromHtml(html:s)
         
-        widget_sutitle.text=s_summary
+        widget_summary.text=s_summary
         
 //        guard let data = s_summary.data(using: String.Encoding.unicode) else { return }
 //        try? widget_title.attributedText = NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
