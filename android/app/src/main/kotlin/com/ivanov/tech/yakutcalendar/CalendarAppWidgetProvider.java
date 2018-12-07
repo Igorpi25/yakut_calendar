@@ -83,6 +83,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     public static String readFile(AssetManager mgr, String path) {
 
         Log.d("Igor","readFile begin");
+        Log.d("Igor","readFile path="+path);
 
 
         String contents = "";
@@ -124,10 +125,14 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     public static String assetPath(Calendar calendar){
 
         int year=calendar.get(Calendar.YEAR);
-        int month=calendar.get(Calendar.MONTH);
+        int month=calendar.get(Calendar.MONTH)+1;
         int day=calendar.get(Calendar.DAY_OF_MONTH);
 
-        return "assets/"+year+"/"+month+"/"+day;
+        String result="assets/"+year+"/"+month+"/"+day;
+
+        Log.d("Igor Log","assetPath value="+result);
+
+        return result;
     }
 
     public static Spanned getSummary(Context context,Calendar calendar){
