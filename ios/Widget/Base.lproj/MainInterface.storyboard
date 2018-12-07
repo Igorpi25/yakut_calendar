@@ -15,45 +15,52 @@
             <objects>
                 <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="Widget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Бала5ан ыйа 30" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
-                                <rect key="frame" x="16" y="16" width="288" height="28"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бала5ан ыйа 30" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
+                                <rect key="frame" x="0.0" y="16" width="320" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Dge-b7-UnX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Баскыьыанньа, 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNI-VS-gCL">
-                                <rect key="frame" x="0.0" y="52" width="320" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Баскыьыанньа, 2019" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNI-VS-gCL">
+                                <rect key="frame" x="0.0" y="44" width="320" height="20.333333333333329"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.329999999999998" id="lrh-SF-zWF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Summary" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-uI-aP3">
-                                <rect key="frame" x="0.0" y="69" width="320" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary asdasd asdasd asd asd asdasd asd asdasd asd asdas asd asd asdas das asd a ddaskjdnjkfjksdb  bkjbsfjwekhbf habsjdh " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-uI-aP3">
+                                <rect key="frame" x="16" y="64.333333333333314" width="288" height="79.666666666666686"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="KmN-uI-aP3" firstAttribute="top" secondItem="vNI-VS-gCL" secondAttribute="bottom" constant="16" id="Mg9-Oc-fX1"/>
-                            <constraint firstItem="vNI-VS-gCL" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="8" symbolic="YES" id="SM4-a9-zqx"/>
-                            <constraint firstItem="KmN-uI-aP3" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="VsQ-Ih-efk"/>
+                            <constraint firstItem="KmN-uI-aP3" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="16" id="ADb-Co-Jyx"/>
+                            <constraint firstItem="KmN-uI-aP3" firstAttribute="top" secondItem="vNI-VS-gCL" secondAttribute="bottom" id="XNc-gW-CqP"/>
+                            <constraint firstItem="vNI-VS-gCL" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" id="XXd-qh-cXm"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="csX-nP-13A"/>
                             <constraint firstItem="vNI-VS-gCL" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="ecf-wV-Z7I"/>
-                            <constraint firstItem="KmN-uI-aP3" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="hKL-NT-OZK"/>
                             <constraint firstItem="vNI-VS-gCL" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="ivQ-bt-ZdP"/>
-                            <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="KmN-uI-aP3" secondAttribute="bottom" id="kQy-SB-Gcd"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="KmN-uI-aP3" secondAttribute="bottom" constant="16" id="kQy-SB-Gcd"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="rfZ-UV-GYl"/>
-                            <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="x4s-Qc-7IQ"/>
+                            <constraint firstItem="KmN-uI-aP3" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" constant="-16" id="wuc-CB-0Pt"/>
+                            <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" constant="16" id="x4s-Qc-7IQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="140"/>
+                    <size key="freeformSize" width="320" height="160"/>
                     <connections>
                         <outlet property="widget_summary" destination="KmN-uI-aP3" id="jfs-8f-azb"/>
                         <outlet property="widget_sutitle" destination="vNI-VS-gCL" id="sTI-fj-o5u"/>
