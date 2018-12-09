@@ -145,7 +145,9 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         Document doc = Jsoup.parse(html);
         Elements summary_element = doc.getElementsByTag("summary");
 
-        String summary_html=summary_element.html();
+        String summary_html=summary_element.text();
+
+        summary_html = summary_html.replaceAll("([\\n\\r]+\\s*)*$", "");
 
         Spanned spanned=null;
 
