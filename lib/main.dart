@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:yakut_calendar/localization_sah.dart';
 import 'package:yakut_calendar/model/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:share/share.dart';
 
 
 
@@ -310,7 +311,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Card(
         child: Padding(
           padding:EdgeInsets.all(14.0),
-          child:getFormattedWidget(data),
+          child:Column(
+            children: <Widget>[
+              Container(
+                alignment: AlignmentDirectional.centerEnd,
+                child:IconButton(
+                  color:Colors.black,
+                  alignment: Alignment.center,
+                  icon: Icon(Icons.share),
+                  tooltip: 'Share',
+                  onPressed: () { setState(() {
+
+                    print("Share pressed");
+                    Share.share(getTextOfHtml(data));
+
+                  });},
+                ),
+              ),
+              getFormattedWidget(data),
+            ],
+          )
         )
       );
   }
@@ -631,6 +651,16 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
       );
+
+  }
+
+  String getTextOfHtml(String data){
+
+    var element=dom.Element.html("<div>"+data+"""<p class="Основной-текст"></p><p class="Основной-текст">http://bichik.ru</p></div>""");
+
+
+    return element.text;
+
 
   }
 
