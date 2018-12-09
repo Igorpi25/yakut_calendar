@@ -277,7 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget getDatePicker(){
     return IconButton(
       color:Colors.white,
-      alignment: Alignment.centerRight,
+      alignment: Alignment.topRight,
       //iconSize: 48,
       icon: Icon(Icons.calendar_today),
       tooltip: 'Previous',
@@ -314,10 +314,10 @@ class _MyHomePageState extends State<MyHomePage> {
           child:Column(
             children: <Widget>[
               Container(
-                alignment: AlignmentDirectional.centerEnd,
+                alignment: AlignmentDirectional.topEnd,
                 child:IconButton(
                   color:Colors.black,
-                  alignment: Alignment.center,
+                  alignment: Alignment.topRight,
                   icon: Icon(Icons.share),
                   tooltip: 'Share',
                   onPressed: () { setState(() {
