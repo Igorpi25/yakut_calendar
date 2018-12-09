@@ -14,6 +14,10 @@ void main() => runApp(new MyApp(
 
 ));
 
+
+//#77061c
+final Color color_firm=Colors.blueGrey;
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
       ],
       title: 'Flutter Demo',
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: color_firm,
       ),
       home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -74,10 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
       slivers: <Widget>[
         SliverAppBar(
           //title: Text('SliverAppBar'),
-          backgroundColor: Colors.blue,
+          backgroundColor: color_firm,
           expandedHeight: 140,
           flexibleSpace: FlexibleSpaceBar(
-            background: Container(color: Colors.blue,child:getHeader(),),
+            background: Container(color: color_firm,child:getHeader(),),
           ),
         ),
         SliverList(
@@ -104,6 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getCarousel() {
+
+
     return Card(
       //color: Colors.green,
       //margin: EdgeInsets.symmetric(horizontal: 16.0),
@@ -116,13 +122,13 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         todayButtonColor: Colors.transparent,
-        todayTextStyle: TextStyle(color:(_currentDate.difference(DateTime.now()).inDays==0)?Colors.white:Colors.blue),
+        todayTextStyle: TextStyle(color:(_currentDate.difference(DateTime.now()).inDays==0)?Colors.white:color_firm),
         thisMonthDayBorderColor: Colors.grey,
-        weekdayTextStyle:TextStyle(color:Colors.red),
+        weekdayTextStyle:TextStyle(color:color_firm),
         weekendTextStyle:TextStyle(color:Colors.red),
-        headerTextStyle:TextStyle(color:Colors.blue),
+        headerTextStyle:TextStyle(color:color_firm),
         //selectedDayButtonColor: Colors.blue,
-        selectedDayBorderColor: Colors.blue,
+        selectedDayBorderColor: color_firm,
         selectedDayTextStyle: TextStyle(color:Colors.white),
         height: 380.0,
         selectedDateTime: _currentDate,
