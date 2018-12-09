@@ -99,7 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //              ),
               (summary.isNotEmpty)?getContent(summary):Container(),
               //getCarousel(),
-              getContent(article),
+              (summary.isNotEmpty)?getContent(article):Container(),
+              (summary.isEmpty && article.isEmpty)?getEmptyContent():Container(),
             ],
           ),
         ),
@@ -333,6 +334,36 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         )
       );
+  }
+
+  Widget getEmptyContent(){
+    return Card(
+        child: Padding(
+            padding:EdgeInsets.all(14.0),
+            child:Column(
+              children: <Widget>[
+                Container(
+                  alignment: AlignmentDirectional.center,
+                  child:IconButton(
+                    color:Colors.black,
+                    alignment: Alignment.center,
+                    icon: Icon(Icons.no_encryption),
+                    iconSize: 48,
+                    tooltip: 'Обновите приложение',
+                    onPressed: () { setState(() {
+
+                      print("Empty content pressed");
+
+                    });},
+                  ),
+                ),
+                Text(
+                  "Данные недоступны. Обновите приложение"
+                ),
+              ],
+            )
+        )
+    );
   }
 
   Widget getFormattedWidget(String data){
