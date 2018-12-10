@@ -358,7 +358,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Text(
-                  "Данные недоступны. Обновите приложение"
+                  "Данные эту дату еще не заполнены";//+(_currentDate.difference(DateTime.now()).inDays<3)?"Обновите приложение":"",
                 ),
               ],
             )
