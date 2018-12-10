@@ -358,7 +358,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Text(
-                  "Данные эту дату еще не заполнены";//+(_currentDate.difference(DateTime.now()).inDays<3)?"Обновите приложение":"",
+                  "Информация сейчас отсутствует. "+((_currentDate.difference(DateTime.now()).inDays<3)?"Обновите приложение чтобы получить свежие данные":"Обновление выйдет ближе к дате"),
+                  textAlign: TextAlign.center,
                 ),
               ],
             )
@@ -696,6 +697,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void reloadAssets(){
+    print("current date: ${_currentDate.toIso8601String()}");
+    print("now: ${DateTime.now().toIso8601String()}");
+    print("current date and now difference in days ${_currentDate.difference(DateTime.now()).inDays}");
+
     ArticleAssetProvider().getArticleFor(_currentDate).then((value){
       print("aricle ready");
       article=value;
@@ -706,6 +711,7 @@ class _MyHomePageState extends State<MyHomePage> {
       summary=value;
       setState((){});
     });
+
   }
 
 
