@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //              ),
               (summary.isNotEmpty)?getContent(summary):Container(),
               //getCarousel(),
-              (summary.isNotEmpty)?getContent(article):Container(),
+              (article.isNotEmpty)?getContent(article):Container(),
               (summary.isEmpty && article.isEmpty)?getEmptyContent():Container(),
             ],
           ),

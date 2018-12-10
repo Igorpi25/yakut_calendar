@@ -17,10 +17,12 @@ class ArticleAssetProvider implements ArticleRepository{
       element=getElementWithTag(value,"article");
     }).catchError((error){
       print("I catch error");
-      element=getElementWithTag("<dummy></dummy>","dummy");
+      //return "";
+      element=getElementWithTag("<article></article>","article");
     }).whenComplete((){
       if(element==null||element.children.length==0){
         return "";
+        //element=getElementWithTag("<article></article>","article");
       }
     });
 
@@ -36,10 +38,12 @@ class ArticleAssetProvider implements ArticleRepository{
       element=getElementWithTag(value,"summary");
     }).catchError((error){
       print("I catch error");
-      element=getElementWithTag("<dummy></dummy>","dummy");
+      //return "";
+      element=getElementWithTag("<summary></summary>","summary");
     }).whenComplete((){
       if(element==null||element.children.length==0){
-        return "";
+        element=getElementWithTag("<summary></summary>","summary");
+        //return "";
       }
     });
 
