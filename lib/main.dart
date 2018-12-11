@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
         alignment: AlignmentDirectional.center,
         children:[
           Image.asset(
-              'assets/images/winter_1.jpg',
+              'assets/images/header_${_currentDate.difference(DateTime.fromMillisecondsSinceEpoch(0)).inDays%4}.jpg',
               fit: BoxFit.cover
             ,
           ),
