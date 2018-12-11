@@ -60,8 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String article="Статья";
   String summary="Описание";
 
-  List<String> monthsLong=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Бала5ан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
-  List<String> weekDaysLong=["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"];
+  List<String> monthsLong=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Балаҕан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
+  List<String> weekDaysLong=["Бэнидиэнньик","Оптуорунньук","Сэрэдэ","Чэппиэр","Бээтинсэ","Субуота","Баскыһыанньа"];
 
   @override
   void initState(){
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ),
               Container(
-                width: 150,
+                width: 200,
                 child:getDateBar(),
               ),
               Expanded(
@@ -290,9 +290,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void selectDateFromPicker()async{
 
-    print(DateTime.parse("2018-10-30").add(Duration(days:38)).toString());
+    //print(DateTime.parse("2018-10-30").add(Duration(days:38)).toString());
 
-    print(kSupportedLanguages);
+    //print(kSupportedLanguages);
 
 
     DateTime picked = await showDatePicker(
