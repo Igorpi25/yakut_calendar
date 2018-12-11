@@ -413,6 +413,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                     );
 
+                  case "подзаголовок-3":
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        node.text,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      )
+                  );
+
                   case "подзаголовок-2 ParaOverride-34":
                     return SizedBox(
                         width: double.infinity,
@@ -476,6 +486,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                     );
 
+                  case "курсив" :
+                    return DefaultTextStyle.merge(
+                        child: getFormattedWidget(node.innerHtml),
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.left
+                    );
 
                   case "стих-строка" :
                   case "Основной-текст ParaOverride-18":
@@ -543,6 +559,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
 
+                  case "автор":
                   case "подпись _idGenParaOverride-1" :
                   case "подпись ParaOverride-7":
                     return SizedBox(
@@ -583,6 +600,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
 
+                  case "иннитэ":
                   case "саҕаланыыта":
                   case "саҕаланыыта ParaOverride-6":
                   case "саҕаланыыта ParaOverride-28" :
