@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String article="Статья";
   String summary="Описание";
+  String ad="Реклама";
 
   List<String> monthsLong=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Балаҕан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
   List<String> weekDaysLong=["Бэнидиэнньик","Оптуорунньук","Сэрэдэ","Чэппиэр","Бээтинсэ","Субуота","Баскыһыанньа"];
@@ -100,7 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
               (summary.isNotEmpty)?getContent(summary):Container(),
               //getCarousel(),
               (article.isNotEmpty)?getContent(article):Container(),
-              (summary.isEmpty && article.isEmpty)?getEmptyContent():Container(),
+              (ad.isNotEmpty)?getContent(ad):Container(),
+              (summary.isEmpty && article.isEmpty && ad.isEmpty)?getEmptyContent():Container(),
             ],
           ),
         ),
@@ -159,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
         alignment: AlignmentDirectional.center,
         children:[
           Image.asset(
-              'assets/images/header_${_currentDate.difference(DateTime.fromMillisecondsSinceEpoch(0)).inDays%4}.jpg',
+              'assets/images/header_${_currentDate.difference(DateTime.fromMillisecondsSinceEpoch(0)).inDays%5}.jpg',
               fit: BoxFit.cover
             ,
           ),
@@ -694,6 +696,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
               }break;
 
+              case "img": {
+                switch(node.className){
+                  case "book" :
+                    print("getFormattedWidget case=img class=book src="+node.attributes["src"]);
+                    return Padding(
+                      padding: EdgeInsets.all(0),
+                      child:Image.asset(
+                        node.attributes["src"],
+                        fit: BoxFit.cover,
+                        //color: Colors.blueGrey,
+                      ),
+
+                    );
+                    break;
+                }
+
+
+              }break;
+
             }
 
             return null;
@@ -719,14 +740,19 @@ class _MyHomePageState extends State<MyHomePage> {
     print("now: ${DateTime.now().toIso8601String()}");
     print("current date and now difference in days ${_currentDate.difference(DateTime.now()).inDays}");
 
+    ArticleAssetProvider().getSummaryFor(_currentDate).then((value){
+      print("summary ready");
+      summary=value;
+      setState((){});
+    });
     ArticleAssetProvider().getArticleFor(_currentDate).then((value){
       print("aricle ready");
       article=value;
       setState((){});
     });
-    ArticleAssetProvider().getSummaryFor(_currentDate).then((value){
-      print("summary ready");
-      summary=value;
+    ArticleAssetProvider().getAdFor(_currentDate).then((value){
+      print("ad ready");
+      ad=value;
       setState((){});
     });
 

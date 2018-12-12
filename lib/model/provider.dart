@@ -21,8 +21,8 @@ class ArticleAssetProvider implements ArticleRepository{
       element=getElementWithTag("<article></article>","article");
     }).whenComplete((){
       if(element==null||element.children.length==0){
-        return "";
-        //element=getElementWithTag("<article></article>","article");
+        //return "";
+        element=getElementWithTag("<article></article>","article");
       }
     });
 
@@ -43,6 +43,28 @@ class ArticleAssetProvider implements ArticleRepository{
     }).whenComplete((){
       if(element==null||element.children.length==0){
         element=getElementWithTag("<summary></summary>","summary");
+        //return "";
+      }
+    });
+
+
+    return element.innerHtml;
+  }
+
+  @override
+  Future<String> getAdFor(DateTime date) async{
+
+    Element element;
+
+    await getHtmlString(date).then(( value ){
+      element=getElementWithTag(value,"ad");
+    }).catchError((error){
+      print("I catch error");
+      //return "";
+      element=getElementWithTag("<ad></ad>","ad");
+    }).whenComplete((){
+      if(element==null||element.children.length==0){
+        element=getElementWithTag("<ad></ad>","ad");
         //return "";
       }
     });
