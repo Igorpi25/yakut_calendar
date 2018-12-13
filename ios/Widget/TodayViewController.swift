@@ -10,7 +10,6 @@ import UIKit
 import NotificationCenter
 
 import Flutter
-import SwiftSoup
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
@@ -105,7 +104,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func getSummaryTextFromHtml(html: String)->String{
         do{
-            let doc: Document = try SwiftSoup.parse(html)
+            let doc: Document = try parse(html)
             let summary: Elements = try doc.getElementsByTag("summary")
            
             return try summary.text()
