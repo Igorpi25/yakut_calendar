@@ -8,6 +8,7 @@ import 'package:yakut_calendar/localization_sah.dart';
 import 'package:yakut_calendar/model/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:share/share.dart';
+import 'my_date_picker.dart';
 
 
 
@@ -297,7 +298,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //print(kSupportedLanguages);
 
 
-    DateTime picked = await showDatePicker(
+    DateTime picked = await showMyDatePicker(
         context: context,
         initialDate: _currentDate,
         locale: Locale("sah"),
