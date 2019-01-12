@@ -112,48 +112,48 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget getCarousel() {
-
-
-    return Card(
-      //color: Colors.green,
-      //margin: EdgeInsets.symmetric(horizontal: 16.0),
-      child: CalendarCarousel(
-        onDayPressed: (DateTime date) {
-          this.setState((){
-            _currentDate = date;
-            //print("Duration:${_currentDate.difference(DateTime.now()).inDays}");
-            reloadAssets();
-          });
-        },
-        todayButtonColor: Colors.transparent,
-        todayTextStyle: TextStyle(color:(_currentDate.difference(DateTime.now()).inDays==0)?Colors.white:color_firm),
-        thisMonthDayBorderColor: Colors.grey,
-        weekdayTextStyle:TextStyle(color:color_firm),
-        weekendTextStyle:TextStyle(color:Colors.red),
-        headerTextStyle:TextStyle(color:color_firm),
-        //selectedDayButtonColor: Colors.blue,
-        selectedDayBorderColor: color_firm,
-        selectedDayTextStyle: TextStyle(color:Colors.white),
-        height: 380.0,
-        selectedDateTime: _currentDate,
-        daysHaveCircularBorder: null,
-
-        //headerText: Text('${monthsLong[_currentDate.month-1]} ${DateFormat.y().format(_currentDate)}'),
-
-
-          ///null for not rendering any border, true for circular border, false for rectangular border
-//        markedDatesMap: _markedDateMap,
-//          weekendStyle: TextStyle(
-//            color: Colors.red,
-//          ),
-//          weekDays: null, /// for pass null when you do not want to render weekDays
-//          headerText: Container( /// Example for rendering custom header
-//            child: Text('Custom Header'),
-//          ),
-      ),
-    );
-  }
+//  Widget getCarousel() {
+//
+//
+//    return Card(
+//      //color: Colors.green,
+//      //margin: EdgeInsets.symmetric(horizontal: 16.0),
+//      child: CalendarCarousel(
+//        onDayPressed: (DateTime date) {
+//          this.setState((){
+//            _currentDate = date;
+//            //print("Duration:${_currentDate.difference(DateTime.now()).inDays}");
+//            reloadAssets();
+//          });
+//        },
+//        todayButtonColor: Colors.transparent,
+//        todayTextStyle: TextStyle(color:(_currentDate.difference(DateTime.now()).inDays==0)?Colors.white:color_firm),
+//        thisMonthDayBorderColor: Colors.grey,
+//        weekdayTextStyle:TextStyle(color:color_firm),
+//        weekendTextStyle:TextStyle(color:Colors.red),
+//        headerTextStyle:TextStyle(color:color_firm),
+//        //selectedDayButtonColor: Colors.blue,
+//        selectedDayBorderColor: color_firm,
+//        selectedDayTextStyle: TextStyle(color:Colors.white),
+//        height: 380.0,
+//        selectedDateTime: _currentDate,
+//        daysHaveCircularBorder: null,
+//
+//        //headerText: Text('${monthsLong[_currentDate.month-1]} ${DateFormat.y().format(_currentDate)}'),
+//
+//
+//          ///null for not rendering any border, true for circular border, false for rectangular border
+////        markedDatesMap: _markedDateMap,
+////          weekendStyle: TextStyle(
+////            color: Colors.red,
+////          ),
+////          weekDays: null, /// for pass null when you do not want to render weekDays
+////          headerText: Container( /// Example for rendering custom header
+////            child: Text('Custom Header'),
+////          ),
+//      ),
+//    );
+//  }
 
   Widget getHeader(){
     return
