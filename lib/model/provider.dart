@@ -5,6 +5,7 @@ import 'package:yakut_calendar/model/repository.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:html/parser.dart' as parser;
 import 'package:html/dom.dart' as dom;
+import 'package:yakut_calendar/model/day_data.dart';
 
 class ArticleAssetProvider implements ArticleRepository{
 
@@ -80,15 +81,60 @@ class ArticleAssetProvider implements ArticleRepository{
   Element getElementWithTag(String html_string, String tagname){
     dom.Document document = parser.parse(html_string);
 
-
     Element article=document.getElementsByTagName(tagname).elementAt(0);
 
     print("getElementWithTag tagname=$tagname: "+article.innerHtml);
 
     return article;
   }
-  
-  
+
+  Future<DayData> getDayDataFor(DateTime date, String tag)async{
+
+    DayData data;
+
+    String rise="",set="",comment="";
+
+    await getHtmlString(date).then(( value ){
+      Element element;
+      element=getElementWithTag(value,tag);
+
+      try {
+        rise = element.getElementsByTagName("ris").elementAt(0).innerHtml;
+      }catch(error){
+      }
+      try {
+        set = element.getElementsByTagName("set").elementAt(0).innerHtml;
+      }catch(error){
+      }
+      try {
+        comment = element.getElementsByTagName("com").elementAt(0).innerHtml;
+      }catch(error){
+      }
+
+      data=new DayData();
+
+      data.rise=rise;
+      data.set=set;
+      data.comment=comment;
+
+    }).catchError((error){
+      print("error on getDayDataFor tag=$tag error: $error");
+
+      data=null;
+    });
+
+    return data;
+  }
+
+  @override
+  Future<DayData> getSunDataFor(DateTime date)async{
+    return await getDayDataFor(date, "sun");
+  }
+
+  @override
+  Future<DayData> getMoonDataFor(DateTime date)async{
+    return await getDayDataFor(date, "moon");
+  }
 
 
 }

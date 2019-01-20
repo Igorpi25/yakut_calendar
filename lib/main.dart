@@ -8,6 +8,7 @@ import 'package:yakut_calendar/localization_sah.dart';
 import 'package:yakut_calendar/model/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:share/share.dart';
+import 'package:yakut_calendar/model/day_data.dart';
 import 'my_date_picker.dart';
 
 
@@ -62,6 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String summary="Описание";
   String ad="Реклама";
 
+  DayData sun=null;
+  DayData moon=null;
+
   List<String> monthsLong=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Балаҕан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
   List<String> weekDaysLong=["Бэнидиэнньик","Оптуорунньук","Сэрэдэ","Чэппиэр","Бээтинсэ","Субуота","Баскыһыанньа"];
 
@@ -99,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //                ),
 //
 //              ),
+              (sun!=null || moon!=null)?getSunAndMoon():Container(),
               (summary.isNotEmpty)?getContent(summary):Container(),
               //getCarousel(),
               (article.isNotEmpty)?getContent(article):Container(),
@@ -111,49 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
         )
     );
   }
-
-//  Widget getCarousel() {
-//
-//
-//    return Card(
-//      //color: Colors.green,
-//      //margin: EdgeInsets.symmetric(horizontal: 16.0),
-//      child: CalendarCarousel(
-//        onDayPressed: (DateTime date) {
-//          this.setState((){
-//            _currentDate = date;
-//            //print("Duration:${_currentDate.difference(DateTime.now()).inDays}");
-//            reloadAssets();
-//          });
-//        },
-//        todayButtonColor: Colors.transparent,
-//        todayTextStyle: TextStyle(color:(_currentDate.difference(DateTime.now()).inDays==0)?Colors.white:color_firm),
-//        thisMonthDayBorderColor: Colors.grey,
-//        weekdayTextStyle:TextStyle(color:color_firm),
-//        weekendTextStyle:TextStyle(color:Colors.red),
-//        headerTextStyle:TextStyle(color:color_firm),
-//        //selectedDayButtonColor: Colors.blue,
-//        selectedDayBorderColor: color_firm,
-//        selectedDayTextStyle: TextStyle(color:Colors.white),
-//        height: 380.0,
-//        selectedDateTime: _currentDate,
-//        daysHaveCircularBorder: null,
-//
-//        //headerText: Text('${monthsLong[_currentDate.month-1]} ${DateFormat.y().format(_currentDate)}'),
-//
-//
-//          ///null for not rendering any border, true for circular border, false for rectangular border
-////        markedDatesMap: _markedDateMap,
-////          weekendStyle: TextStyle(
-////            color: Colors.red,
-////          ),
-////          weekDays: null, /// for pass null when you do not want to render weekDays
-////          headerText: Container( /// Example for rendering custom header
-////            child: Text('Custom Header'),
-////          ),
-//      ),
-//    );
-//  }
 
   Widget getHeader(){
     return
@@ -170,10 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children:[
               Expanded(
                 flex: 1,
-                child:Container(
-
-                  //child:Image.asset('assets/images/winter_1.jpg', fit: BoxFit.cover),
-                )
+                child: Container(),
               ),
               Container(
                 width: 200,
@@ -191,6 +150,100 @@ class _MyHomePageState extends State<MyHomePage> {
           )
           ]
       );
+  }
+
+  Widget getKeyValueRow(String text, String value) {
+    return Row(
+
+      children: <Widget>[
+        Text(
+          text,
+        ),
+        Padding(
+          padding: EdgeInsets.only(left:4),
+          child:Text(
+            value,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget getSunColumn(DayData data){
+    return Card(
+        child: Padding(
+        padding:EdgeInsets.all(14.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding:EdgeInsets.only(right:14.0),
+          child:Icon(Icons.stars,size: 28.0,),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:<Widget>[
+            (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
+            (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
+            (data.comment.isNotEmpty) ? getKeyValueRow("Кун уьуна", data.comment) : Container(),
+          ]
+        ),
+      ],
+    )));
+
+  }
+
+  Widget getMoonColumn(DayData data){
+    return Card(
+        child: Padding(
+            padding:EdgeInsets.all(14.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding:EdgeInsets.only(right:14.0),
+                  child:Icon(Icons.stars,size: 28.0,),
+                ),
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:<Widget>[
+                      (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
+                      (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
+                      (data.comment.isNotEmpty) ? Row(
+                        children: <Widget>[
+                          Text(
+                            data.comment,
+                            maxLines: 2,
+                          ),
+                        ],
+                      ) : Container(),
+                    ]
+                ),
+              ],
+            )));
+
+  }
+
+  Widget getSunAndMoonIcon(){
+    return Icon(Icons.star_half,size: 45.0,);
+
+  }
+
+  Widget getSunAndMoon(){
+
+    return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            sun != null ? getSunColumn(sun) : Container(),
+            moon!=null ? getMoonColumn(moon) : Container(),
+          ],
+        );
+
+
+
   }
 
   Widget getDateBar(){
@@ -736,26 +789,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
-  void reloadAssets(){
+  void reloadAssets() async{
     print("current date: ${_currentDate.toIso8601String()}");
     print("now: ${DateTime.now().toIso8601String()}");
     print("current date and now difference in days ${_currentDate.difference(DateTime.now()).inDays}");
 
-    ArticleAssetProvider().getSummaryFor(_currentDate).then((value){
-      print("summary ready");
-      summary=value;
-      setState((){});
-    });
-    ArticleAssetProvider().getArticleFor(_currentDate).then((value){
-      print("aricle ready");
-      article=value;
-      setState((){});
-    });
-    ArticleAssetProvider().getAdFor(_currentDate).then((value){
-      print("ad ready");
-      ad=value;
-      setState((){});
-    });
+    Future.wait([
+      ArticleAssetProvider().getSummaryFor(_currentDate).then((value){
+        print("summary ready");
+        summary=value;
+      }),
+      ArticleAssetProvider().getArticleFor(_currentDate).then((value){
+        print("aricle ready");
+        article=value;
+      }),
+      ArticleAssetProvider().getAdFor(_currentDate).then((value){
+        print("ad ready");
+        ad=value;
+      }),
+      ArticleAssetProvider().getSunDataFor(_currentDate).then((value){
+        print("sun ready=$value");
+        sun=value;
+      }),
+      ArticleAssetProvider().getMoonDataFor(_currentDate).then((value){
+        print("moon ready=$value");
+        moon=value;
+      }),
+    ]).then((onValue)=>
+      setState((){})
+    );
 
   }
 
