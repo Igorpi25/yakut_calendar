@@ -158,11 +158,13 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         Text(
           text,
+          style: TextStyle(fontSize: 17),
         ),
         Padding(
           padding: EdgeInsets.only(left:4),
           child:Text(
             value,
+            style: TextStyle(fontSize: 17),
           ),
         )
       ],
@@ -170,23 +172,29 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getSunColumn(DayData data){
-    return Card(
-        child: Padding(
-        padding:EdgeInsets.all(14.0),
-    child: Row(
+    return Expanded(
+        flex: 1,
+        child:Container(color:Colors.transparent, child:Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding:EdgeInsets.only(right:14.0),
-          child:Icon(Icons.stars,size: 28.0,),
+          padding:EdgeInsets.only(right:10.0),
+          child:Icon(Icons.star,size: 28.0,color: Colors.yellow,),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children:<Widget>[
+
+            Text(
+              "Кун",
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
+              textAlign: TextAlign.center,
+            ),
+            (data.comment.isNotEmpty) ? getKeyValueRow("Уhуна", data.comment) : Container(),
             (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
             (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
-            (data.comment.isNotEmpty) ? getKeyValueRow("Кун уьуна", data.comment) : Container(),
+
           ]
         ),
       ],
@@ -195,30 +203,34 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getMoonColumn(DayData data){
-    return Card(
-        child: Padding(
-            padding:EdgeInsets.all(14.0),
-            child: Row(
+    return Expanded(
+      flex: 1,
+        child:Container(color:Colors.transparent, child:Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding:EdgeInsets.only(right:14.0),
-                  child:Icon(Icons.stars,size: 28.0,),
+                  padding:EdgeInsets.only(right:10),
+                  child:Icon(Icons.stars,size: 28.0,color: Colors.blue,),
                 ),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:<Widget>[
+                      Text(
+                        data.comment,
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
+                        textAlign: TextAlign.center,
+                      ),
                       (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
                       (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
-                      (data.comment.isNotEmpty) ? Row(
-                        children: <Widget>[
-                          Text(
-                            data.comment,
-                            maxLines: 2,
-                          ),
-                        ],
-                      ) : Container(),
+                      //(data.comment.isNotEmpty) ? getKeyValueRow(data.comment, "") : Container(),
+//                      (data.comment.isNotEmpty) ? Row(
+//                        children: <Widget>[
+//                          Text(
+//                            data.comment,
+//                          ),
+//                        ],
+//                      ) : Container(),
                     ]
                 ),
               ],
@@ -233,14 +245,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget getSunAndMoon(){
 
-    return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            sun != null ? getSunColumn(sun) : Container(),
-            moon!=null ? getMoonColumn(moon) : Container(),
-          ],
-        );
+    return
+      Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+            //topLeft: Radius.circular(20),
+            //topRight: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+        )),
+        child: Padding(
+        padding:EdgeInsets.only(left:10,right:10,top:10,bottom:17.0),
+        child:Column(
+        children:<Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              sun != null ? getSunColumn(sun) : Container(),
+              moon!=null ? getMoonColumn(moon) : Container(),
+            ],
+          ),
+
+
+      ])));
 
 
 
