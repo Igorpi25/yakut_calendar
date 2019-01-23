@@ -1,68 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:background="#00F"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:columnCount="4"
+    android:rowCount="3">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:background="#00F"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right">
+        android:layout_columnSpan="2"
+        android:gravity="right"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/sun_rise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right">
+            android:fontFamily="sans-serif-light"
+            android:gravity="left"
+            android:text="Тахсыыта"
+            android:textColor="#ffffff"
+            android:textSize="14dp"
+            tools:text="Тахсыыта" />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/title"
-                android:fontFamily="sans-serif-light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
+        <TextView
+            android:id="@+id/sun_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left"
+            android:text="Киириитэ"
+            android:textColor="#ffff00"
+            android:textSize="14dp"
+            tools:text="Киириитэ" />
 
-                android:textColor="#ffffff"
-                android:text=""
-                android:textSize="24dp" />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/subtitle"
-                android:fontFamily="sans-serif-light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="#ffffff"
-                android:text=""
-                android:textSize="12dp" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:background="#F00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill"
+        android:gravity="right"
+        android:orientation="vertical">
 
-        <!--<ImageView
-            android:id="@+id/pattern"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:scaleType="center"
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="24dp"
+            tools:text="Тохсунньу" />
 
-            android:src="@mipmap/ic_launcher"
-            android:tint="#ffffff"
-            />-->
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left"
+            android:text=""
+            android:textColor="#ffff00"
+            android:textSize="12dp"
+            tools:text="Сэрэдэ, 22" />
 
         <TextView
             android:id="@+id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:gravity="right"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-light"
-            android:textColor="#ffffff"
-            android:text=""
-            android:textSize="14dp"
+            android:gravity="right"
             android:maxLines="3"
-            android:ellipsize="end"/>
+            android:paddingTop="8dp"
+            android:text=""
+            android:textColor="#ff00ff"
+            android:textSize="14dp"
+            tools:text="Сүллүүкүннэр киирэллэр, таҥха түмүктэнэр. Бу күн былытырдаҕына, өҥ сайыны күүтэллэр" />
 
     </LinearLayout>
 
-</FrameLayout>
+
+</GridLayout>
