@@ -66,7 +66,10 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.summary,getSummary(context,calendar));
 
             //Pattern
-            //views.setImageViewBitmap(R.id.pattern,getPattern(context));
+            views.setImageViewBitmap(R.id.sun,getImage(context,"assets/icon/icons8-sun-50.png"));
+            views.setImageViewBitmap(R.id.moon,getImage(context,"assets/icon/icons8-full-moon-50.png"));
+
+
 
             //Open App when click
             views.setOnClickPendingIntent(R.id.root, pendingIntent);
@@ -176,7 +179,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
         return weekdaysLong[weekday-1]+", "+year;
     }
 
-    public static Bitmap getPattern(Context context){
+    public static Bitmap getImage(Context context,String path){
 
         Bitmap b=null;
 
@@ -184,7 +187,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             Log.d("Igor","imageview begin");
 
             AssetManager assetManager = context.getAssets();
-            String key = getLookupKeyForAsset("assets/images/pattern_1.png");
+            String key = getLookupKeyForAsset(path);
 
             InputStream is=assetManager.open(key);
             BitmapFactory.decodeStream(is);
