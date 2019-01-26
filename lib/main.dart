@@ -197,7 +197,12 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
               textAlign: TextAlign.center,
             ),
-            (data.comment.isNotEmpty) ? getKeyValueRow("уhуна", data.comment) : Container(),
+            Text(
+              "уьуна ${data.comment}",
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
+              textAlign: TextAlign.center,
+            ),
+            //(data.comment.isNotEmpty) ? getKeyValueRow("уhуна", data.comment) : Container(),
             (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
             (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
 
