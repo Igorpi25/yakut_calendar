@@ -193,12 +193,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children:<Widget>[
 
             Text(
-              "Кун",
+              "Күн",
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
               textAlign: TextAlign.start,
             ),
             Text(
-              "уьуна ${data.comment}",
+              "уһуна ${data.comment}",
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
               textAlign: TextAlign.start,
             ),
