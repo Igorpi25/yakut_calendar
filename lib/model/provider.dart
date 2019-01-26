@@ -92,12 +92,16 @@ class ArticleAssetProvider implements ArticleRepository{
 
     DayData data;
 
-    String rise="",set="",comment="";
+    String rise="",set="",comment="",icon="";
 
     await getHtmlString(date).then(( value ){
       Element element;
       element=getElementWithTag(value,tag);
 
+      try {
+        icon = element.getElementsByTagName("ico").elementAt(0).innerHtml;
+      }catch(error){
+      }
       try {
         rise = element.getElementsByTagName("ris").elementAt(0).innerHtml;
       }catch(error){
@@ -116,6 +120,7 @@ class ArticleAssetProvider implements ArticleRepository{
       data.rise=rise;
       data.set=set;
       data.comment=comment;
+      data.icon=icon;
 
     }).catchError((error){
       print("error on getDayDataFor tag=$tag error: $error");

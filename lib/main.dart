@@ -179,7 +179,13 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         Padding(
           padding:EdgeInsets.only(right:10.0),
-          child:Icon(Icons.star,size: 28.0,color: Colors.yellow,),
+          child:Image.asset(
+            'assets/icon/sun.png',
+            fit: BoxFit.cover,
+            color: Colors.yellow,
+            width: 24,
+            height: 24,
+          ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
               textAlign: TextAlign.center,
             ),
-            (data.comment.isNotEmpty) ? getKeyValueRow("Уhуна", data.comment) : Container(),
+            (data.comment.isNotEmpty) ? getKeyValueRow("уhуна", data.comment) : Container(),
             (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
             (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
 
@@ -210,7 +216,13 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Padding(
                   padding:EdgeInsets.only(right:10),
-                  child:Icon(Icons.stars,size: 28.0,color: Colors.blue,),
+                  child:(data.icon.isNotEmpty)?Image.asset(
+                    'assets/icon/${data.icon}.png',
+                    fit: BoxFit.cover,
+                    color: Colors.blue,
+                    width: 24,
+                    height: 24,
+                  ):Container(width: 24,height: 24,),
                 ),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -266,12 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
               moon!=null ? getMoonColumn(moon) : Container(),
             ],
           ),
-
-
       ])));
-
-
-
   }
 
   Widget getDateBar(){

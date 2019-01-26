@@ -1,13 +1,13 @@
 <sun>
-    <ico></ico>
+    <ico>sun</ico>
     <ris>09:04</ris>
     <set>16:04</set>
     <com>07:00</com>
 </sun>
 <moon>
-    <ico></ico>
-    <ris>10:54</ris>
-    <set>23:45</set>
+    <ico>5</ico>
+    <ris>23:45</ris>
+    <set>10:54</set>
     <com>Ый кэлтэйиитэ:
 тохс.22-27 к.</com>
 </moon>
