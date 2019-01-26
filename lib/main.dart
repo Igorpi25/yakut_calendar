@@ -195,14 +195,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               "Кун",
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
             ),
             Text(
               "уьуна ${data.comment}",
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
             ),
-            //(data.comment.isNotEmpty) ? getKeyValueRow("уhуна", data.comment) : Container(),
             (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
             (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
 
@@ -236,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Text(
                         data.comment,
                         style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                       (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
                       (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),

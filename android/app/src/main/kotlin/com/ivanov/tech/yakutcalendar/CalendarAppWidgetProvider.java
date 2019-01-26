@@ -57,7 +57,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            //calendar.add(Calendar.DAY_OF_YEAR, 1);
 
             //Title & Subtitle
             views.setTextViewText(R.id.title, getTitle(calendar));
