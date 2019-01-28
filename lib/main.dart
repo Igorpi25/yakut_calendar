@@ -1,25 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:intl/intl.dart';
 import 'package:yakut_calendar/localization_sah.dart';
 import 'package:yakut_calendar/model/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:share/share.dart';
 import 'package:yakut_calendar/model/day_data.dart';
 import 'my_date_picker.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-
-
-void main() => runApp(new MyApp(
-
-));
-
+void main() => runApp(new MyApp());
 
 //#77061c
-final Color color_firm=Colors.blueGrey;
+final Color color_firm = Colors.blueGrey;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -56,21 +50,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  DateTime _currentDate = DateTime.now(); //.parse("2019-02-01");
 
-  DateTime _currentDate=DateTime.now();//.parse("2019-02-01");
+  String article = "Статья";
+  String summary = "Описание";
+  String ad = "Реклама";
 
-  String article="Статья";
-  String summary="Описание";
-  String ad="Реклама";
+  DayData sun = null;
+  DayData moon = null;
 
-  DayData sun=null;
-  DayData moon=null;
-
-  List<String> monthsLong=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Балаҕан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
-  List<String> weekDaysLong=["Бэнидиэнньик","Оптуорунньук","Сэрэдэ","Чэппиэр","Бээтинсэ","Субуота","Баскыһыанньа"];
+  List<String> monthsLong = [
+    "Тохсунньу",
+    "Олунньу",
+    "Кулун тутар",
+    "Муус устар",
+    "Ыам ыйа",
+    "Бэс ыйа",
+    "От ыйа",
+    "Атырдьах ыйа",
+    "Балаҕан ыйа",
+    "Алтынньы",
+    "Сэтинньи",
+    "Ахсынньы"
+  ];
+  List<String> weekDaysLong = [
+    "Бэнидиэнньик",
+    "Оптуорунньук",
+    "Сэрэдэ",
+    "Чэппиэр",
+    "Бээтинсэ",
+    "Субуота",
+    "Баскыһыанньа"
+  ];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     reloadAssets();
@@ -80,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         //color:Colors.blue,
-        body:CustomScrollView(
+        body: CustomScrollView(
       primary: true,
       slivers: <Widget>[
         SliverAppBar(
@@ -88,7 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: color_firm,
           expandedHeight: 140,
           flexibleSpace: FlexibleSpaceBar(
-            background: Container(color: color_firm,child:getHeader(),),
+            background: Container(
+              color: color_firm,
+              child: getHeader(),
+            ),
           ),
         ),
         SliverList(
@@ -103,142 +120,133 @@ class _MyHomePageState extends State<MyHomePage> {
 //                ),
 //
 //              ),
-              (sun!=null || moon!=null)?getSunAndMoon():Container(),
-              (summary.isNotEmpty)?getContent(summary):Container(),
+              (sun != null || moon != null) ? getSunAndMoon() : Container(),
+              (summary.isNotEmpty) ? getContent(summary) : Container(),
               //getCarousel(),
-              (article.isNotEmpty)?getContent(article):Container(),
-              (ad.isNotEmpty)?getContent(ad):Container(),
-              (summary.isEmpty && article.isEmpty && ad.isEmpty)?getEmptyContent():Container(),
+              (article.isNotEmpty) ? getContent(article) : Container(),
+              (ad.isNotEmpty) ? getContent(ad) : Container(),
+              (summary.isEmpty && article.isEmpty && ad.isEmpty)
+                  ? getEmptyContent()
+                  : Container(),
             ],
           ),
         ),
       ],
-        )
-    );
+    ));
   }
 
-  Widget getHeader(){
-    return
-      Stack(
-        fit:StackFit.expand,
+  Widget getHeader() {
+    return Stack(
+        fit: StackFit.expand,
         alignment: AlignmentDirectional.center,
-        children:[
+        children: [
           Image.asset(
-              'assets/images/header_${_currentDate.difference(DateTime.fromMillisecondsSinceEpoch(0)).inDays%5}.jpg',
-              fit: BoxFit.cover
-            ,
+            'assets/images/header_${_currentDate.difference(DateTime.fromMillisecondsSinceEpoch(0)).inDays % 5}.jpg',
+            fit: BoxFit.cover,
           ),
-          Row(
-            children:[
-              Expanded(
-                flex: 1,
-                child: Container(),
+          Row(children: [
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+            Container(
+              width: 200,
+              child: getDateBar(),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                //color:Colors.orange,
+                alignment: AlignmentDirectional.bottomEnd,
+                child: getDatePicker(),
               ),
-              Container(
-                width: 200,
-                child:getDateBar(),
-              ),
-              Expanded(
-                flex:1,
-                child:Container(
-                    //color:Colors.orange,
-                    alignment: AlignmentDirectional.bottomEnd,
-                    child:getDatePicker(),
-                ),
-              ),
-            ]
-          )
-          ]
-      );
+            ),
+          ])
+        ]);
   }
 
   Widget getKeyValueRow(String text, String value) {
-    return Row(
-
-      children: <Widget>[
-        Text(
-          text,
-          style: TextStyle(fontSize: 17),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left:4),
-          child:Text(
-            value,
-            style: TextStyle(fontSize: 17),
-          ),
-        )
-      ],
+    return AutoSizeText(
+      text + " " + value,
     );
   }
 
-  Widget getSunColumn(DayData data){
+  Widget getSunColumn(DayData data) {
     return Expanded(
         flex: 1,
-        child:Container(color:Colors.transparent, child:Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding:EdgeInsets.only(right:10.0),
-          child:Image.asset(
-            'assets/icon/sun.png',
-            fit: BoxFit.cover,
-            color: Colors.yellow,
-            width: 24,
-            height: 24,
-          ),
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:<Widget>[
-
-            Text(
-              "Күн",
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
-              textAlign: TextAlign.start,
-            ),
-            Text(
-              "уһуна ${data.comment}",
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
-              textAlign: TextAlign.start,
-            ),
-            (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
-            (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
-
-          ]
-        ),
-      ],
-    )));
-
-  }
-
-  Widget getMoonColumn(DayData data){
-    return Expanded(
-      flex: 1,
-        child:Container(color:Colors.transparent, child:Row(
+        child: Container(
+            color: Colors.transparent,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding:EdgeInsets.only(right:10),
-                  child:(data.icon.isNotEmpty)?Image.asset(
-                    'assets/icon/${data.icon}.png',
-                    fit: BoxFit.cover,
-                    color: Colors.blue,
-                    width: 24,
-                    height: 24,
-                  ):Container(width: 24,height: 24,),
-                ),
+                    padding: EdgeInsets.only(right: 5),
+                    child: LimitedBox(
+                      maxHeight: 24,
+                      maxWidth: 24,
+                      child: Image.asset(
+                        'assets/icon/sun.png',
+                        fit: BoxFit.fitWidth,
+                        color: Colors.yellow,
+                      ),
+                    )),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:<Widget>[
-                      Text(
-                        data.comment,
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
+                    children: <Widget>[
+                      AutoSizeText(
+                        "Күн уһуна ${data.comment}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                         textAlign: TextAlign.start,
                       ),
-                      (data.rise.isNotEmpty) ? getKeyValueRow("Тахсыыта", data.rise) : Container(),
-                      (data.set.isNotEmpty) ? getKeyValueRow("Киириитэ", data.set) : Container(),
+                      (data.rise.isNotEmpty)
+                          ? getKeyValueRow("Тахсыыта", data.rise)
+                          : Container(),
+                      (data.set.isNotEmpty)
+                          ? getKeyValueRow("Киириитэ", data.set)
+                          : Container(),
+                    ]),
+              ],
+            )));
+  }
+
+  Widget getMoonColumn(DayData data) {
+    return Expanded(
+        flex: 1,
+        child: Container(
+            color: Colors.transparent,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(right: 5),
+                    child: LimitedBox(
+                      maxHeight: 24,
+                      maxWidth: 24,
+                      child: Image.asset(
+                        'assets/icon/${data.icon}.png',
+                        fit: BoxFit.fitWidth,
+                        color: Colors.blue,
+                      ),
+                    )),
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      AutoSizeText(
+                        data.comment,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      ),
+                      (data.rise.isNotEmpty)
+                          ? getKeyValueRow("Тахсыыта", data.rise)
+                          : Container(),
+                      (data.set.isNotEmpty)
+                          ? getKeyValueRow("Киириитэ", data.set)
+                          : Container(),
                       //(data.comment.isNotEmpty) ? getKeyValueRow(data.comment, "") : Container(),
 //                      (data.comment.isNotEmpty) ? Row(
 //                        children: <Widget>[
@@ -247,276 +255,261 @@ class _MyHomePageState extends State<MyHomePage> {
 //                          ),
 //                        ],
 //                      ) : Container(),
-                    ]
-                ),
+                    ]),
               ],
             )));
-
   }
 
-  Widget getSunAndMoonIcon(){
-    return Icon(Icons.star_half,size: 45.0,);
-
+  Widget getSunAndMoonIcon() {
+    return Icon(
+      Icons.star_half,
+      size: 45.0,
+    );
   }
 
-  Widget getSunAndMoon(){
-
-    return
-      Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-            //topLeft: Radius.circular(20),
-            //topRight: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
+  Widget getSunAndMoon() {
+    return Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          //topLeft: Radius.circular(20),
+          //topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
         )),
         child: Padding(
-        padding:EdgeInsets.only(left:10,right:10,top:10,bottom:17.0),
-        child:Column(
-        children:<Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-
-              sun != null ? getSunColumn(sun) : Container(),
-              moon!=null ? getMoonColumn(moon) : Container(),
-            ],
-          ),
-      ])));
+            padding:
+                EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 17.0),
+            child: Column(children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  sun != null ? getSunColumn(sun) : Container(),
+                  moon != null ? getMoonColumn(moon) : Container(),
+                ],
+              ),
+            ])));
   }
 
-  Widget getDateBar(){
+  Widget getDateBar() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Padding(
-          padding:EdgeInsets.only(top: 20),
-          child:Text(
-            '${monthsLong[_currentDate.month-1]}',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              shadows: [
-                Shadow(
+          padding: EdgeInsets.only(top: 20),
+          child: Text(
+            '${monthsLong[_currentDate.month - 1]}',
+            style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
+              Shadow(
                   //offset: Offset(4,4),
-                  blurRadius: 8
-                )
-              ]
-            ),),
+                  blurRadius: 8)
+            ]),
+          ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
-            Expanded(
-              flex: 1,
-              child:IconButton(
-                color:Colors.white,
-                alignment: Alignment.centerRight,
-                iconSize: 48,
-                icon: Icon(Icons.arrow_left),
-                tooltip: 'Previous',
-                onPressed: () { setState(() {
-                  _currentDate=_currentDate.add(-Duration(days:1));
-                  print("Previous pressed");
-                  reloadAssets();
-                });},
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  color: Colors.white,
+                  alignment: Alignment.centerRight,
+                  iconSize: 48,
+                  icon: Icon(Icons.arrow_left),
+                  tooltip: 'Previous',
+                  onPressed: () {
+                    setState(() {
+                      _currentDate = _currentDate.add(-Duration(days: 1));
+                      print("Previous pressed");
+                      reloadAssets();
+                    });
+                  },
+                ),
               ),
-            ),
-            Text(
-              '${_currentDate.day}',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 48,
-                shadows: [
+              Text(
+                '${_currentDate.day}',
+                style: TextStyle(color: Colors.white, fontSize: 48, shadows: [
                   Shadow(
-                    //offset: Offset(4,4),
-                      blurRadius: 8
-                  )
-                ]
+                      //offset: Offset(4,4),
+                      blurRadius: 8)
+                ]),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child:IconButton(
-                color:Colors.white,
-                alignment: Alignment.centerLeft,
-                iconSize: 48,
-                icon: Icon(Icons.arrow_right),
-                tooltip: 'Next',
-                onPressed: () { setState(() {
-                  _currentDate=_currentDate.add(Duration(days:1));
-                  print("Next pressed");
-                  reloadAssets();
-                });},
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  color: Colors.white,
+                  alignment: Alignment.centerLeft,
+                  iconSize: 48,
+                  icon: Icon(Icons.arrow_right),
+                  tooltip: 'Next',
+                  onPressed: () {
+                    setState(() {
+                      _currentDate = _currentDate.add(Duration(days: 1));
+                      print("Next pressed");
+                      reloadAssets();
+                    });
+                  },
+                ),
               ),
-            ),
-          ]
-        ),
+            ]),
         Text(
-          '${weekDaysLong[_currentDate.weekday-1]}',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            shadows: [
-              Shadow(
+          '${weekDaysLong[_currentDate.weekday - 1]}',
+          style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
+            Shadow(
                 //offset: Offset(4,4),
-                  blurRadius: 8
-              )
-            ]
-          ),),
-
+                blurRadius: 8)
+          ]),
+        ),
       ],
     );
   }
 
-  Widget getDatePicker(){
+  Widget getDatePicker() {
     return IconButton(
-      color:Colors.white,
+      color: Colors.white,
       alignment: Alignment.topRight,
       //iconSize: 48,
       icon: Icon(Icons.calendar_today),
       tooltip: 'Previous',
       onPressed: () {
         selectDateFromPicker();
-        },
+      },
     );
   }
 
-  void selectDateFromPicker()async{
-
+  void selectDateFromPicker() async {
     //print(DateTime.parse("2018-10-30").add(Duration(days:38)).toString());
 
     //print(kSupportedLanguages);
-
 
     DateTime picked = await showMyDatePicker(
         context: context,
         initialDate: _currentDate,
         locale: Locale("sah"),
         firstDate: new DateTime(2018),
-        lastDate: new DateTime(2020)
-    );
-    if(picked != null) setState(() {
-      _currentDate=picked;
-      reloadAssets();
-    });
+        lastDate: new DateTime(2020));
+    if (picked != null)
+      setState(() {
+        _currentDate = picked;
+        reloadAssets();
+      });
   }
 
-  Widget getContent(String data){
+  Widget getContent(String data) {
     return Card(
         child: Padding(
-          padding:EdgeInsets.all(14.0),
-          child:Column(
-            children: <Widget>[
-              Container(
-                alignment: AlignmentDirectional.topEnd,
-                child:IconButton(
-                  color:Colors.black,
-                  alignment: Alignment.topRight,
-                  icon: Icon(Icons.share),
-                  tooltip: 'Share',
-                  onPressed: () { setState(() {
-
-                    print("Share pressed");
-                    Share.share(getTextOfHtml(data));
-
-                  });},
+            padding: EdgeInsets.all(14.0),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: AlignmentDirectional.topEnd,
+                  child: IconButton(
+                    color: Colors.black,
+                    alignment: Alignment.topRight,
+                    icon: Icon(Icons.share),
+                    tooltip: 'Share',
+                    onPressed: () {
+                      setState(() {
+                        print("Share pressed");
+                        Share.share(getTextOfHtml(data));
+                      });
+                    },
+                  ),
                 ),
-              ),
-              getFormattedWidget(data),
-            ],
-          )
-        )
-      );
+                getFormattedWidget(data),
+              ],
+            )));
   }
 
-  Widget getEmptyContent(){
+  Widget getEmptyContent() {
     return Card(
         child: Padding(
-            padding:EdgeInsets.all(14.0),
-            child:Column(
+            padding: EdgeInsets.all(14.0),
+            child: Column(
               children: <Widget>[
                 Container(
                   alignment: AlignmentDirectional.center,
-                  child:IconButton(
-                    color:Colors.black,
+                  child: IconButton(
+                    color: Colors.black,
                     alignment: Alignment.center,
                     icon: Icon(Icons.no_encryption),
                     iconSize: 48,
                     tooltip: 'Обновите приложение',
-                    onPressed: () { setState(() {
-
-                      print("Empty content pressed");
-
-                    });},
+                    onPressed: () {
+                      setState(() {
+                        print("Empty content pressed");
+                      });
+                    },
                   ),
                 ),
                 Text(
-                  "Информация сейчас отсутствует. "+((_currentDate.difference(DateTime.now()).inDays<3)?"Обновите приложение чтобы получить свежие данные":"Обновление выйдет ближе к дате"),
+                  "Информация сейчас отсутствует. " +
+                      ((_currentDate.difference(DateTime.now()).inDays < 3)
+                          ? "Обновите приложение чтобы получить свежие данные"
+                          : "Обновление выйдет ближе к дате"),
                   textAlign: TextAlign.center,
                 ),
               ],
-            )
-        )
-    );
+            )));
   }
 
-  Widget getFormattedWidget(String data){
-    return
-      Html(
-        data: data,
-        padding: EdgeInsets.all(0.0),
-        customRender: (node, children) {
-          if (node is dom.Element) {
-            switch (node.localName) {
-              case "p": {
+  Widget getFormattedWidget(String data) {
+    return Html(
+      data: data,
+      padding: EdgeInsets.all(0.0),
+      customRender: (node, children) {
+        if (node is dom.Element) {
+          switch (node.localName) {
+            case "p":
+              {
                 switch (node.className) {
-                  case "юбилей" :
-                  case "билгэ" :
+                  case "юбилей":
+                  case "билгэ":
                     return Padding(
-                        padding:EdgeInsets.only(bottom:14),
-                        child:SizedBox(
-                          width: double.infinity,
-                          child:DefaultTextStyle.merge(
-                            child: Text(node.text),
-                            style: TextStyle(fontStyle: FontStyle.italic,),
-                            textAlign: TextAlign.center,
-                          )
-                        )
-                    );
+                        padding: EdgeInsets.only(bottom: 14),
+                        child: SizedBox(
+                            width: double.infinity,
+                            child: DefaultTextStyle.merge(
+                              child: Text(node.text),
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                              ),
+                              textAlign: TextAlign.center,
+                            )));
 
-                  case "подзаголовок-2" :
+                  case "подзаголовок-2":
                   case "подзаголовок-2 ParaOverride-32":
                   case "подзаголовок-2 ParaOverride-37":
                     return SizedBox(
                         width: double.infinity,
                         child: Text(
                           node.text,
-                          style: TextStyle(fontWeight: FontWeight.bold,),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                           textAlign: TextAlign.center,
-                        )
-                    );
+                        ));
 
-                  case "подзаголовок-2 курсив" :
+                  case "подзаголовок-2 курсив":
                     return SizedBox(
                         width: double.infinity,
                         child: Text(
                           node.text,
-                          style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic),
                           textAlign: TextAlign.center,
-                        )
-                    );
+                        ));
 
                   case "подзаголовок-3":
                     return SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        node.text,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
-                      )
-                  );
+                        width: double.infinity,
+                        child: Text(
+                          node.text,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.left,
+                        ));
 
                   case "подзаголовок-2 ParaOverride-34":
                     return SizedBox(
@@ -528,31 +521,27 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontSize: 16,
                           ),
                           textAlign: TextAlign.left,
-                        )
-                    );
+                        ));
 
-                  case "профдень" :
-                  case "примета" :
+                  case "профдень":
+                  case "примета":
                     return Padding(
-                      padding:EdgeInsets.only(bottom:14),
-                      child:SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          node.text,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "SKH_VERDANA",
-                          ),
-                          textAlign: TextAlign.center,
-
-                        )
-                      )
-                    );
+                        padding: EdgeInsets.only(bottom: 14),
+                        child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              node.text,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "SKH_VERDANA",
+                              ),
+                              textAlign: TextAlign.center,
+                            )));
 
                   case "бичик":
                     return Padding(
-                        padding:EdgeInsets.only(),
-                        child:SizedBox(
+                        padding: EdgeInsets.only(),
+                        child: SizedBox(
                             width: double.infinity,
                             child: Text(
                               node.text,
@@ -562,10 +551,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontSize: 18,
                               ),
                               textAlign: TextAlign.center,
-
-                            )
-                        )
-                    );
+                            )));
 
                   case "рубрики":
                     return SizedBox(
@@ -573,22 +559,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Text(
                           node.text,
                           style: TextStyle(
-                            //fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
                               fontFamily: "SKH_VERDANA",
-                              decoration: TextDecoration.underline
-                          ),
+                              decoration: TextDecoration.underline),
                           textAlign: TextAlign.right,
-                        )
-                    );
+                        ));
 
-                  case "курсив" :
+                  case "курсив":
                     return DefaultTextStyle.merge(
                         child: getFormattedWidget(node.innerHtml),
                         style: TextStyle(fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.left
-                    );
+                        textAlign: TextAlign.left);
 
-                  case "стих-строка" :
+                  case "стих-строка":
                   case "Основной-текст ParaOverride-18":
                   case "Основной-текст ParaOverride-30":
                   case "Основной-текст ParaOverride-33":
@@ -598,48 +581,45 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Text(
                           node.text,
                           textAlign: TextAlign.center,
-                        )
-                    );
+                        ));
 
-                  case "стих-строка-первая" :
+                  case "стих-строка-первая":
                   case "Основной-текст ParaOverride-17":
                   case "Основной-текст ParaOverride-31":
                   case "осн-до-1-5 ParaOverride-18":
                   case "осн-до-1-5 ParaOverride-30":
                   case "осн-до-1-5 ParaOverride-33":
                   case "осн-до-1-5 _idGenParaOverride-1":
-                  return SizedBox(
-                    width: double.infinity,
-                    child: Padding(
-                        child:Text(
-                          node.text,
-                          textAlign: TextAlign.center,
-                        ),
-                        padding:EdgeInsetsDirectional.only(top:14)
-                    ),
-                  );
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                          child: Text(
+                            node.text,
+                            textAlign: TextAlign.center,
+                          ),
+                          padding: EdgeInsetsDirectional.only(top: 14)),
+                    );
 
-                  case "ХЫ" :
+                  case "ХЫ":
                   case "ХЫ _idGenParaOverride-1":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
-                          child:Text(
+                          child: Text(
                             node.text,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          padding:EdgeInsetsDirectional.only(top:14)
-                      ),
+                          padding: EdgeInsetsDirectional.only(top: 14)),
                     );
 
-                  case "подпись" :
+                  case "подпись":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
-                          child:Text(
+                          child: Text(
                             node.text,
                             textAlign: TextAlign.right,
                             style: TextStyle(
@@ -650,37 +630,35 @@ class _MyHomePageState extends State<MyHomePage> {
                               //fontWeight: FontWeight.bold,
                             ),
                           ),
-                          padding:EdgeInsetsDirectional.only(top:14)
-                      ),
+                          padding: EdgeInsetsDirectional.only(top: 14)),
                     );
 
                   case "автор":
-                  case "подпись _idGenParaOverride-1" :
+                  case "подпись _idGenParaOverride-1":
                   case "подпись ParaOverride-7":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
-                          child:Text(
+                          child: Text(
                             node.text,
                             style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.right,
                           ),
-                          padding:EdgeInsetsDirectional.only(top:0)
-                      ),
+                          padding: EdgeInsetsDirectional.only(top: 0)),
                     );
 
                   case "таайыыта":
-                  case "салгыыта ParaOverride-11" :
+                  case "салгыыта ParaOverride-11":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
                           child: RotationTransition(
                             turns: new AlwaysStoppedAnimation(180 / 360),
-                            child:Text(
+                            child: Text(
                               node.text,
                               style: TextStyle(
                                 fontFamily: "SKH_VERDANA",
@@ -691,18 +669,17 @@ class _MyHomePageState extends State<MyHomePage> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          padding:EdgeInsetsDirectional.only(top:14)
-                      ),
+                          padding: EdgeInsetsDirectional.only(top: 14)),
                     );
 
                   case "иннитэ":
                   case "саҕаланыыта":
                   case "саҕаланыыта ParaOverride-6":
-                  case "саҕаланыыта ParaOverride-28" :
+                  case "саҕаланыыта ParaOverride-28":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
-                          child:Text(
+                          child: Text(
                             node.text,
                             style: TextStyle(
                               fontFamily: "SKH_VERDANA",
@@ -712,17 +689,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             textAlign: TextAlign.left,
                           ),
-                          padding:EdgeInsetsDirectional.only(top:0)
-                      ),
+                          padding: EdgeInsetsDirectional.only(top: 0)),
                     );
 
                   case "салгыыта":
-                  case "салгыыта _idGenParaOverride-1" :
+                  case "салгыыта _idGenParaOverride-1":
                   case "салгыыта ParaOverride-6":
                     return SizedBox(
                       width: double.infinity,
                       child: Padding(
-                          child:Text(
+                          child: Text(
                             node.text,
                             style: TextStyle(
                               fontFamily: "SKH_VERDANA",
@@ -732,134 +708,119 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             textAlign: TextAlign.right,
                           ),
-                          padding:EdgeInsetsDirectional.only(top:0)
-                      ),
+                          padding: EdgeInsetsDirectional.only(top: 0)),
                     );
 
-                  default :
+                  default:
                     return SizedBox(
                         width: double.infinity,
-                        child: (children.length==0)?Text(
-                          node.text,
-                          textAlign: TextAlign.justify,
-                        ):
-                        DefaultTextStyle.merge(
-                            child:getFormattedWidget(node.innerHtml),
-                            textAlign: TextAlign.justify,
-                        )
-                    );
+                        child: (children.length == 0)
+                            ? Text(
+                                node.text,
+                                textAlign: TextAlign.justify,
+                              )
+                            : DefaultTextStyle.merge(
+                                child: getFormattedWidget(node.innerHtml),
+                                textAlign: TextAlign.justify,
+                              ));
                 }
+              }
+              break;
 
-
-
-              }break;
-
-              case "span": {
+            case "span":
+              {
                 switch (node.className) {
-                  case "CharOverride-21" :
+                  case "CharOverride-21":
                     return DefaultTextStyle.merge(
                         child: getFormattedWidget(node.innerHtml),
                         style: TextStyle(fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.left
-                    );
+                        textAlign: TextAlign.left);
 
-                  case "жирный" :
+                  case "жирный":
                   case "CharOverride-15":
                     return DefaultTextStyle.merge(
                         child: getFormattedWidget(node.innerHtml),
                         style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left
-                    );
-
+                        textAlign: TextAlign.left);
                 }
+              }
+              break;
 
-              }break;
-
-              case "pattern": {
+            case "pattern":
+              {
                 print("getFormattedWidget case=pattern");
                 return Padding(
                   padding: EdgeInsets.all(0),
-                  child:Image.asset(
+                  child: Image.asset(
                     "assets/images/pattern_1.png",
                     fit: BoxFit.cover,
                     color: Colors.black,
                   ),
-
                 );
+              }
+              break;
 
-              }break;
-
-              case "img": {
-                switch(node.className){
-                  case "book" :
-                    print("getFormattedWidget case=img class=book src="+node.attributes["src"]);
+            case "img":
+              {
+                switch (node.className) {
+                  case "book":
+                    print("getFormattedWidget case=img class=book src=" +
+                        node.attributes["src"]);
                     return Padding(
                       padding: EdgeInsets.all(0),
-                      child:Image.asset(
+                      child: Image.asset(
                         node.attributes["src"],
                         fit: BoxFit.cover,
                         //color: Colors.blueGrey,
                       ),
-
                     );
                     break;
                 }
-
-
-              }break;
-
-            }
-
-            return null;
-
+              }
+              break;
           }
-        },
-      );
 
+          return null;
+        }
+      },
+    );
   }
 
-  String getTextOfHtml(String data){
-
-    var element=dom.Element.html("<div>"+data+"""<p class="Основной-текст"></p><p class="Основной-текст">http://bichik.ru</p></div>""");
-
+  String getTextOfHtml(String data) {
+    var element = dom.Element.html("<div>" +
+        data +
+        """<p class="Основной-текст"></p><p class="Основной-текст">http://bichik.ru</p></div>""");
 
     return element.text;
-
-
   }
 
-  void reloadAssets() async{
+  void reloadAssets() async {
     print("current date: ${_currentDate.toIso8601String()}");
     print("now: ${DateTime.now().toIso8601String()}");
-    print("current date and now difference in days ${_currentDate.difference(DateTime.now()).inDays}");
+    print(
+        "current date and now difference in days ${_currentDate.difference(DateTime.now()).inDays}");
 
     Future.wait([
-      ArticleAssetProvider().getSummaryFor(_currentDate).then((value){
+      ArticleAssetProvider().getSummaryFor(_currentDate).then((value) {
         print("summary ready");
-        summary=value;
+        summary = value;
       }),
-      ArticleAssetProvider().getArticleFor(_currentDate).then((value){
+      ArticleAssetProvider().getArticleFor(_currentDate).then((value) {
         print("aricle ready");
-        article=value;
+        article = value;
       }),
-      ArticleAssetProvider().getAdFor(_currentDate).then((value){
+      ArticleAssetProvider().getAdFor(_currentDate).then((value) {
         print("ad ready");
-        ad=value;
+        ad = value;
       }),
-      ArticleAssetProvider().getSunDataFor(_currentDate).then((value){
+      ArticleAssetProvider().getSunDataFor(_currentDate).then((value) {
         print("sun ready=$value");
-        sun=value;
+        sun = value;
       }),
-      ArticleAssetProvider().getMoonDataFor(_currentDate).then((value){
+      ArticleAssetProvider().getMoonDataFor(_currentDate).then((value) {
         print("moon ready=$value");
-        moon=value;
+        moon = value;
       }),
-    ]).then((onValue)=>
-      setState((){})
-    );
-
+    ]).then((onValue) => setState(() {}));
   }
-
-
 }
-
