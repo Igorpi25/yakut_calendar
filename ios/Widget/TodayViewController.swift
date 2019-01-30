@@ -25,6 +25,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var widget_image: UIImageView!
     
+    @IBOutlet weak var widget_sun: UIImageView!
+    
+    @IBOutlet weak var widget_moon: UIImageView!
+    @IBOutlet weak var sun_rise: UILabel!
+    @IBOutlet weak var sun_set: UILabel!
+    @IBOutlet weak var sun_comment: UILabel!
+    @IBOutlet weak var moon_rise: UILabel!
+    @IBOutlet weak var moon_set: UILabel!
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -36,11 +44,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let day = calendar.component(.day, from: date)
         let year = calendar.component(.year, from: date)
         
+        let path = "flutter_assets/assets/"+String(year)+"/"+String(month_index)+"/"+String(day)
         
         widget_title.text = months[month_index-1]+" "+String(day)
         widget_sutitle.text = weekdays[weekday_index-1]+", "+String(year)
-        widget_summary.text = getSummary(key:"flutter_assets/assets/"+String(year)+"/"+String(month_index)+"/"+String(day))
-        //widget_image.image = getImageFromFile(key:"flutter_assets/assets/images/winter_1.jpg")
+        widget_summary.text = getSummary(key: path)
+        
+        let tintableImageSun : UIImage = getImageFromFile(key:"flutter_assets/assets/icon/sun.png")
+        widget_sun.image = tintableImageSun.withRenderingMode(.alwaysTemplate)
+        widget_sun.tintColor = UIColor.black
+        
+        setSunAndMoon (key: path)
+        
         
     }
     
@@ -55,8 +70,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // make sure imageView can be interacted with by user
         widget_image.isUserInteractionEnabled = true
         
-        
-       
         let padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
         
     }
@@ -100,6 +113,42 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return s_summary
         
         
+    }
+    
+    func setSunAndMoon(key: String){
+        
+        sun_rise.text = ""
+        sun_set.text = ""
+        sun_comment.text = ""
+        
+        moon_rise.text = ""
+        moon_set.text = ""
+        
+        do{
+            let s = readDataFromFile(file: key)
+            
+            let doc: Document = try parse(s)
+            
+            let sun: Element? = try doc.getElementsByTag("sun").first()
+            
+            sun_rise.text = try sun?.getElementsByTag("ris").first()?.text() ?? ""
+            sun_set.text = try sun?.getElementsByTag("set").first()?.text() ?? ""
+            sun_comment.text = try sun?.getElementsByTag("com").first()?.text() ?? ""
+            
+            let moon: Element? = try doc.getElementsByTag("moon").first()
+            
+            moon_rise.text = try moon?.getElementsByTag("ris").first()?.text() ?? ""
+            moon_set.text = try moon?.getElementsByTag("set").first()?.text() ?? ""
+            
+            let moon_icon: String = try moon?.getElementsByTag("ico").first()?.text() ?? ""
+            
+            let tintableImageMoon : UIImage = getImageFromFile(key:"flutter_assets/assets/icon/"+moon_icon+".png")
+            widget_moon.image = tintableImageMoon.withRenderingMode(.alwaysTemplate)
+            widget_moon.tintColor = UIColor.black
+            
+        } catch {
+            
+        }
     }
     
     func getSummaryTextFromHtml(html: String)->String{

@@ -203,6 +203,8 @@
 		CE65B85021B6DDE9007137E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		CE65B85221B6DDE9007137E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE65B85B21B6E607007137E8 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		CEE6882621FF86BE00E24844 /* share.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE6882821FF86D200E24844 /* share.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEECC5AF21B7AC7D001D9EA7 /* Flutter */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Flutter; sourceTree = "<group>"; };
 		CEECC5B221B7B1C7001D9EA7 /* Runner */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Runner; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -372,6 +374,8 @@
 		CE65B84921B6DDE9007137E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEE6882821FF86D200E24844 /* share.framework */,
+				CEE6882621FF86BE00E24844 /* share.framework */,
 				CEECC5B221B7B1C7001D9EA7 /* Runner */,
 				CEECC5AF21B7AC7D001D9EA7 /* Flutter */,
 				CE65B84A21B6DDE9007137E8 /* NotificationCenter.framework */,
@@ -968,7 +972,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited) $(PROJECT_DIR)/Flutter";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flutter",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Widget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
