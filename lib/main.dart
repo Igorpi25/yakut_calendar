@@ -1,3 +1,29 @@
+//import 'package:auto_size_text/auto_size_text.dart';
+//import 'package:flutter/material.dart';
+//
+//void main() {
+//  runApp(App());
+//}
+//
+//class App extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      home: Scaffold(
+//        body: Center(
+//            child:AutoSizeText(
+//              "This string will be automatically resized to fit in two lines.",
+//              style: TextStyle(fontSize: 30.0),
+//              minFontSize: 8.0,
+//              maxLines: 1,
+//              overflow: TextOverflow.ellipsis,
+//            ),
+//        ),
+//      ),
+//    );
+//  }
+//}
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -168,8 +194,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget getKeyValueRow(String text, String value) {
     return AutoSizeText(
-      text + " " + value,
-    );
+      text+" "+value,
+//              style: TextStyle(fontSize: 30.0),
+//              minFontSize: 8.0,
+//              maxLines: 1,
+//              overflow: TextOverflow.ellipsis,
+            );
   }
 
   Widget getSunColumn(DayData data) {
