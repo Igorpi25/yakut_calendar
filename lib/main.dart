@@ -193,21 +193,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getKeyValueRow(String text, String value) {
-    return AutoSizeText(
-      text+" "+value,
-//              style: TextStyle(fontSize: 30.0),
-//              minFontSize: 8.0,
-//              maxLines: 1,
-//              overflow: TextOverflow.ellipsis,
-            );
+    return Container(
+      width: 200,
+      height: 20,
+      child:AutoSizeText(
+          text+" "+value,
+          style: TextStyle(fontSize: 30.0),
+          minFontSize: 8.0,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        )
+    );
   }
 
   Widget getSunColumn(DayData data) {
     return Expanded(
         flex: 1,
-        child: Container(
-            color: Colors.transparent,
-            child: Row(
+        child: Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -241,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           : Container(),
                     ]),
               ],
-            )));
+            ));
   }
 
   Widget getMoonColumn(DayData data) {
@@ -310,17 +312,93 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Padding(
             padding:
                 EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 17.0),
-            child: Column(children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  sun != null ? getSunColumn(sun) : Container(),
-                  moon != null ? getMoonColumn(moon) : Container(),
-                ],
-              ),
-            ])));
+            child: Table(
+              defaultVerticalAlignment: TableCellVerticalAlignment.top,
+              //border: TableBorder.all(),
+              columnWidths: {
+                0:FixedColumnWidth(30),
+                //1:FractionColumnWidth(.4),
+                2:FixedColumnWidth(30),
+                //3:FractionColumnWidth(.4)
+              },
+              children: [
+                  TableRow(children:[
+                      LimitedBox(
+                        maxHeight: 24,
+                        maxWidth: 30,
+                        child: Image.asset(
+                          'assets/icon/sun.png',
+                          fit: BoxFit.fitHeight,
+                          color: Colors.yellow,
+                        ),
+                      ),
+                      AutoSizeText(
+                        "Күн уһуна ${sun.comment}",
+                        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+                        minFontSize: 8.0,
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
+                      ),
+                      LimitedBox(
+                        maxHeight: 24,
+                        maxWidth: 30,
+                        child: Image.asset(
+                          'assets/icon/${moon.icon}.png',
+                          fit: BoxFit.fitHeight,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      AutoSizeText(
+                        moon.comment,
+                        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+                        minFontSize: 8.0,
+                        maxLines: 3,
+                        overflow: TextOverflow.clip,
+                      )
+                  ]),
+                  TableRow(children:[
+                    Container(),
+                    AutoSizeText(
+                        "Тахсыыта "+sun.rise,
+                      style: TextStyle(fontSize: 14.0),
+                      minFontSize: 8.0,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Container(),
+                    AutoSizeText(
+                      "Тахсыыта "+moon.rise,
+                      style: TextStyle(fontSize: 14.0),
+                      minFontSize: 8.0,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  ]),
+                  TableRow(children:[
+                    Container(),
+                    AutoSizeText(
+                        "Киириитэ "+sun.rise,
+                      style: TextStyle(fontSize: 14.0),
+                      minFontSize: 8.0,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Container(),
+                    AutoSizeText(
+                      "Киириитэ "+moon.set,
+                      style: TextStyle(fontSize: 14.0),
+                      minFontSize: 8.0,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  ]),
+              ])
+
+            )
+
+    );
   }
+
 
   Widget getDateBar() {
     return Column(
@@ -328,7 +406,7 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(top: 20),
-          child: Text(
+          child: AutoSizeText(
             '${monthsLong[_currentDate.month - 1]}',
             style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
               Shadow(
@@ -358,7 +436,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              Text(
+              AutoSizeText(
                 '${_currentDate.day}',
                 style: TextStyle(color: Colors.white, fontSize: 48, shadows: [
                   Shadow(
@@ -384,8 +462,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ]),
-        Text(
+        AutoSizeText(
           '${weekDaysLong[_currentDate.weekday - 1]}',
+          minFontSize: 8,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
             Shadow(
                 //offset: Offset(4,4),
