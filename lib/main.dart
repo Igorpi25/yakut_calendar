@@ -192,114 +192,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ]);
   }
 
-  Widget getKeyValueRow(String text, String value) {
-    return Container(
-      width: 200,
-      height: 20,
-      child:AutoSizeText(
-          text+" "+value,
-          style: TextStyle(fontSize: 30.0),
-          minFontSize: 8.0,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        )
-    );
-  }
-
-  Widget getSunColumn(DayData data) {
-    return Expanded(
-        flex: 1,
-        child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: LimitedBox(
-                      maxHeight: 24,
-                      maxWidth: 24,
-                      child: Image.asset(
-                        'assets/icon/sun.png',
-                        fit: BoxFit.fitWidth,
-                        color: Colors.yellow,
-                      ),
-                    )),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      AutoSizeText(
-                        "Күн уһуна ${data.comment}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                      (data.rise.isNotEmpty)
-                          ? getKeyValueRow("Тахсыыта", data.rise)
-                          : Container(),
-                      (data.set.isNotEmpty)
-                          ? getKeyValueRow("Киириитэ", data.set)
-                          : Container(),
-                    ]),
-              ],
-            ));
-  }
-
-  Widget getMoonColumn(DayData data) {
-    return Expanded(
-        flex: 1,
-        child: Container(
-            color: Colors.transparent,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 5),
-                    child: LimitedBox(
-                      maxHeight: 24,
-                      maxWidth: 24,
-                      child: Image.asset(
-                        'assets/icon/${data.icon}.png',
-                        fit: BoxFit.fitWidth,
-                        color: Colors.blue,
-                      ),
-                    )),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      AutoSizeText(
-                        data.comment,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
-                      ),
-                      (data.rise.isNotEmpty)
-                          ? getKeyValueRow("Тахсыыта", data.rise)
-                          : Container(),
-                      (data.set.isNotEmpty)
-                          ? getKeyValueRow("Киириитэ", data.set)
-                          : Container(),
-                      //(data.comment.isNotEmpty) ? getKeyValueRow(data.comment, "") : Container(),
-//                      (data.comment.isNotEmpty) ? Row(
-//                        children: <Widget>[
-//                          Text(
-//                            data.comment,
-//                          ),
-//                        ],
-//                      ) : Container(),
-                    ]),
-              ],
-            )));
-  }
-
-  Widget getSunAndMoonIcon() {
-    return Icon(
-      Icons.star_half,
-      size: 45.0,
-    );
-  }
-
   Widget getSunAndMoon() {
     return Card(
         shape: RoundedRectangleBorder(
@@ -322,7 +214,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 //3:FractionColumnWidth(.4)
               },
               children: [
-                  TableRow(children:[
+                  TableRow(
+                      children:[
                       LimitedBox(
                         maxHeight: 24,
                         maxWidth: 30,
@@ -399,13 +292,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Widget getDateBar() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 20),
+        Container(height: 20),
+        Container(
+          alignment: Alignment.bottomCenter,
+          width: 200,
+          height: 30,
           child: AutoSizeText(
             '${monthsLong[_currentDate.month - 1]}',
             style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
@@ -419,58 +314,62 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                flex: 1,
-                child: IconButton(
-                  color: Colors.white,
-                  alignment: Alignment.centerRight,
-                  iconSize: 48,
-                  icon: Icon(Icons.arrow_left),
-                  tooltip: 'Previous',
-                  onPressed: () {
-                    setState(() {
-                      _currentDate = _currentDate.add(-Duration(days: 1));
-                      print("Previous pressed");
-                      reloadAssets();
-                    });
-                  },
-                ),
+              IconButton(
+                color: Colors.white,
+                alignment: Alignment.centerRight,
+                iconSize: 48,
+                icon: Icon(Icons.arrow_left),
+                tooltip: 'Previous',
+                onPressed: () {
+                  setState(() {
+                    _currentDate = _currentDate.add(-Duration(days: 1));
+                    print("Previous pressed");
+                    reloadAssets();
+                  });
+                },
               ),
-              AutoSizeText(
-                '${_currentDate.day}',
-                style: TextStyle(color: Colors.white, fontSize: 48, shadows: [
+              Container(
+                alignment: Alignment.center,
+                width: 60,
+                height: 60,
+                child:AutoSizeText(
+                  '${_currentDate.day}',
+                  minFontSize: 8,
+                  style: TextStyle(color: Colors.white, fontSize: 48, shadows: [
+                    Shadow(
+                        //offset: Offset(4,4),
+                        blurRadius: 8)
+                  ]),
+                )),
+              IconButton(
+                color: Colors.white,
+                alignment: Alignment.centerLeft,
+                iconSize: 48,
+                icon: Icon(Icons.arrow_right),
+                tooltip: 'Next',
+                onPressed: () {
+                  setState(() {
+                    _currentDate = _currentDate.add(Duration(days: 1));
+                    print("Next pressed");
+                    reloadAssets();
+                  });
+                },
+              ),
+            ]),
+        Container(
+          alignment: Alignment.center,
+          width: 200,
+          height: 30,
+              child:AutoSizeText(
+                '${weekDaysLong[_currentDate.weekday - 1]}',
+                minFontSize: 8,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
                   Shadow(
                       //offset: Offset(4,4),
                       blurRadius: 8)
                 ]),
               ),
-              Expanded(
-                flex: 1,
-                child: IconButton(
-                  color: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  iconSize: 48,
-                  icon: Icon(Icons.arrow_right),
-                  tooltip: 'Next',
-                  onPressed: () {
-                    setState(() {
-                      _currentDate = _currentDate.add(Duration(days: 1));
-                      print("Next pressed");
-                      reloadAssets();
-                    });
-                  },
-                ),
-              ),
-            ]),
-        AutoSizeText(
-          '${weekDaysLong[_currentDate.weekday - 1]}',
-          minFontSize: 8,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
-            Shadow(
-                //offset: Offset(4,4),
-                blurRadius: 8)
-          ]),
         ),
       ],
     );
