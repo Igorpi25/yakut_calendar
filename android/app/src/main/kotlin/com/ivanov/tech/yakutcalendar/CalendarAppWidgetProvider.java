@@ -79,7 +79,7 @@ public class CalendarAppWidgetProvider extends AppWidgetProvider {
     }
 
     static String[] monthsLong = {"Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Балаҕан ыйа", "Алтынньы", "Сэтинньи", "Ахсынньы"};
-    static String[] weekdaysLong = {"Бэнидиэнньик", "Оптуорунньук", "Сэрэдэ", "Чэппиэр", "Бээтинсэ", "Субуота", "Баскыһыанньа"};
+    static String[] weekdaysLong = { "Баскыһыанньа", "Бэнидиэнньик", "Оптуорунньук", "Сэрэдэ", "Чэппиэр", "Бээтинсэ", "Субуота"};
 
 
     public static String readFile(AssetManager mgr, String path) {

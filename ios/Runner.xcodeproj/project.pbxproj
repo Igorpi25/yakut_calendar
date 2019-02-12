@@ -18,6 +18,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		CE4183EA221356F900F6C8E9 /* share.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4183E9221356F900F6C8E9 /* share.framework */; };
 		CE64160C21C81B0900B85D7D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CE6415D121C81B0800B85D7D /* LICENSE */; };
 		CE64160D21C81B0900B85D7D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE6415D221C81B0800B85D7D /* README.md */; };
 		CE64160E21C81B0900B85D7D /* HtmlTreeBuilderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6415D421C81B0800B85D7D /* HtmlTreeBuilderState.swift */; };
@@ -138,6 +139,7 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE4183E9221356F900F6C8E9 /* share.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6415D121C81B0800B85D7D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CE6415D221C81B0800B85D7D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE6415D421C81B0800B85D7D /* HtmlTreeBuilderState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlTreeBuilderState.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE4183EA221356F900F6C8E9 /* share.framework in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
 				3B80C3941E831B6300D905FE /* App.framework in Frameworks */,
 				1D1E73811ADD422795B44EA7 /* Pods_Runner.framework in Frameworks */,
@@ -374,6 +377,7 @@
 		CE65B84921B6DDE9007137E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE4183E9221356F900F6C8E9 /* share.framework */,
 				CEE6882821FF86D200E24844 /* share.framework */,
 				CEE6882621FF86BE00E24844 /* share.framework */,
 				CEECC5B221B7B1C7001D9EA7 /* Runner */,
@@ -579,7 +583,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
-				"${PODS_ROOT}/../.symlinks/flutter/ios/Flutter.framework",
+				"${PODS_ROOT}/../.symlinks/flutter/ios-release/Flutter.framework",
 				"${BUILT_PRODUCTS_DIR}/share/share.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
