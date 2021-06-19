@@ -244,7 +244,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   TableRow(children:[
                     Container(),
                     AutoSizeText(
-                        "Киириитэ "+sun.rise,
+                        "Киириитэ "+sun.set,
                       style: TextStyle(fontSize: 14.0),
                       minFontSize: 8.0,
                       maxLines: 1,
