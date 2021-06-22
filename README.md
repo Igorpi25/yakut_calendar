@@ -17,7 +17,7 @@
 Якутский не входит в состав `MaterialLocalizations`, поэтому реализована собственная поддержка 
 правильных наименований месяцев и дней недели на якутском языке.
 
-Файл с локализацией лежит в [lib/localization_sah.dart](lib/localization_sah.dart).
+Файл с локализацией лежит в [lib/localization_sah.dart](lib/localization/localization_sah.dart).
 Подключение к проекту в файле `main.dart` в `MaterialApp.localizationsDelegates`.
 
 ## Шрифты

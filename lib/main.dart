@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:yakut_calendar/localization_sah.dart';
-import 'package:yakut_calendar/model/provider.dart';
+import 'package:yakut_calendar/localization/localization_sah.dart';
+import 'package:yakut_calendar/model/content_data.dart';
+import 'package:yakut_calendar/repository/content_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:share/share.dart';
-import 'package:yakut_calendar/model/day_data.dart';
-import 'my_date_picker.dart';
+import 'package:yakut_calendar/component/my_date_picker.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:yakut_calendar/localization/name_collections.dart';
 
 void main() => runApp(new MyApp());
 
@@ -53,42 +54,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime.now(); //.parse("2019-02-01");
 
-  String article = "Статья";
-  String summary = "Описание";
-  String ad = "Реклама";
-
-  DayData sun = null;
-  DayData moon = null;
-
-  List<String> monthsLong = [
-    "Тохсунньу",
-    "Олунньу",
-    "Кулун тутар",
-    "Муус устар",
-    "Ыам ыйа",
-    "Бэс ыйа",
-    "От ыйа",
-    "Атырдьах ыйа",
-    "Балаҕан ыйа",
-    "Алтынньы",
-    "Сэтинньи",
-    "Ахсынньы"
-  ];
-  List<String> weekDaysLong = [
-    "Бэнидиэнньик",
-    "Оптуорунньук",
-    "Сэрэдэ",
-    "Чэппиэр",
-    "Бээтинсэ",
-    "Субуота",
-    "Баскыһыанньа"
-  ];
+  ContentData _content = new ContentData();
 
   @override
   void initState() {
     super.initState();
-
-    reloadAssets();
+    _reloadAssets();
   }
 
   @override
@@ -121,12 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
 //                ),
 //
 //              ),
-              (sun != null || moon != null) ? getSunAndMoon() : Container(),
-              (summary.isNotEmpty) ? getContent(summary) : Container(),
+              (_content.sun != null || _content.moon != null) ? getSunAndMoon() : Container(),
+              (_content.summary.isNotEmpty) ? getContent(_content.summary) : Container(),
               //getCarousel(),
-              (article.isNotEmpty) ? getContent(article) : Container(),
-              (ad.isNotEmpty) ? getContent(ad) : Container(),
-              (summary.isEmpty && article.isEmpty && ad.isEmpty)
+              (_content.article.isNotEmpty) ? getContent(_content.article) : Container(),
+              (_content.ad.isNotEmpty) ? getContent(_content.ad) : Container(),
+              (_content.summary.isEmpty && _content.article.isEmpty && _content.ad.isEmpty)
                   ? getEmptyContent()
                   : Container(),
             ],
@@ -200,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       AutoSizeText(
-                        "Күн уһуна ${sun.comment}",
+                        "Күн уһуна ${_content.sun.comment}",
                         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
                         minFontSize: 8.0,
                         maxLines: 2,
@@ -210,13 +181,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         maxHeight: 24,
                         maxWidth: 30,
                         child: Image.asset(
-                          'assets/icon/${moon.icon}.png',
+                          'assets/icon/${_content.moon.icon}.png',
                           fit: BoxFit.fitHeight,
                           color: Colors.blue,
                         ),
                       ),
                       AutoSizeText(
-                        moon.comment,
+                        _content.moon.comment,
                         style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
                         minFontSize: 8.0,
                         maxLines: 3,
@@ -226,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   TableRow(children:[
                     Container(),
                     AutoSizeText(
-                        "Тахсыыта "+sun.rise,
+                        "Тахсыыта "+_content.sun.rise,
                       style: TextStyle(fontSize: 14.0),
                       minFontSize: 8.0,
                       maxLines: 1,
@@ -234,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(),
                     AutoSizeText(
-                      "Тахсыыта "+moon.rise,
+                      "Тахсыыта "+_content.moon.rise,
                       style: TextStyle(fontSize: 14.0),
                       minFontSize: 8.0,
                       maxLines: 1,
@@ -244,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   TableRow(children:[
                     Container(),
                     AutoSizeText(
-                        "Киириитэ "+sun.set,
+                        "Киириитэ "+_content.sun.set,
                       style: TextStyle(fontSize: 14.0),
                       minFontSize: 8.0,
                       maxLines: 1,
@@ -252,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(),
                     AutoSizeText(
-                      "Киириитэ "+moon.set,
+                      "Киириитэ "+_content.moon.set,
                       style: TextStyle(fontSize: 14.0),
                       minFontSize: 8.0,
                       maxLines: 1,
@@ -276,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
           width: 200,
           height: 30,
           child: AutoSizeText(
-            '${monthsLong[_currentDate.month - 1]}',
+            '${monthsNameList[_currentDate.month - 1]}',
             style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
               Shadow(
                   //offset: Offset(4,4),
@@ -298,7 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     _currentDate = _currentDate.add(-Duration(days: 1));
                     print("Previous pressed");
-                    reloadAssets();
+                    _reloadAssets();
                   });
                 },
               ),
@@ -325,7 +296,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     _currentDate = _currentDate.add(Duration(days: 1));
                     print("Next pressed");
-                    reloadAssets();
+                    _reloadAssets();
                   });
                 },
               ),
@@ -335,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
           width: 200,
           height: 30,
               child:AutoSizeText(
-                '${weekDaysLong[_currentDate.weekday - 1]}',
+                '${weekdaysNameList[_currentDate.weekday - 1]}',
                 minFontSize: 8,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white, fontSize: 18, shadows: [
@@ -376,7 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (picked != null)
       setState(() {
         _currentDate = picked;
-        reloadAssets();
+        _reloadAssets();
       });
   }
 
@@ -778,32 +749,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return element.text;
   }
 
-  void reloadAssets() async {
+  void _reloadAssets() async {
     print("current date: ${_currentDate.toIso8601String()}");
     print("now: ${DateTime.now().toIso8601String()}");
     print(
         "current date and now difference in days ${_currentDate.difference(DateTime.now()).inDays}");
 
     Future.wait([
-      ArticleAssetProvider().getSummaryFor(_currentDate).then((value) {
+      ContentService().getSummaryFor(_currentDate).then((value) {
         print("summary ready");
-        summary = value;
+        _content.summary = value;
       }),
-      ArticleAssetProvider().getArticleFor(_currentDate).then((value) {
+      ContentService().getArticleFor(_currentDate).then((value) {
         print("aricle ready");
-        article = value;
+        _content.article = value;
       }),
-      ArticleAssetProvider().getAdFor(_currentDate).then((value) {
+      ContentService().getAdFor(_currentDate).then((value) {
         print("ad ready");
-        ad = value;
+        _content.ad = value;
       }),
-      ArticleAssetProvider().getSunDataFor(_currentDate).then((value) {
+      ContentService().getSunDataFor(_currentDate).then((value) {
         print("sun ready=$value");
-        sun = value;
+        _content.sun = value;
       }),
-      ArticleAssetProvider().getMoonDataFor(_currentDate).then((value) {
+      ContentService().getMoonDataFor(_currentDate).then((value) {
         print("moon ready=$value");
-        moon = value;
+        _content.moon = value;
       }),
     ]).then((onValue) => setState(() {}));
   }

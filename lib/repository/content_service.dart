@@ -1,29 +1,29 @@
 import 'dart:async';
 
 import 'package:html/dom.dart';
-import 'package:yakut_calendar/model/repository.dart';
+import 'package:yakut_calendar/repository/content_gateway.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:html/parser.dart' as parser;
 import 'package:html/dom.dart' as dom;
 import 'package:yakut_calendar/model/day_data.dart';
 
-class ArticleAssetProvider implements ArticleRepository{
+class ContentService implements ContentGateway{
 
   @override
   Future<String> getArticleFor(DateTime date) async {
 
     Element element;
 
-    await getHtmlString(date).then(( value ){
-      element=getElementWithTag(value,"article");
+    await _getHtmlString(date).then(( value ){
+      element=_getElementWithTag(value,"article");
     }).catchError((error){
       print("I catch error");
       //return "";
-      element=getElementWithTag("<article></article>","article");
+      element=_getElementWithTag("<article></article>","article");
     }).whenComplete((){
       if(element==null||element.children.length==0){
         //return "";
-        element=getElementWithTag("<article></article>","article");
+        element=_getElementWithTag("<article></article>","article");
       }
     });
 
@@ -35,15 +35,15 @@ class ArticleAssetProvider implements ArticleRepository{
 
     Element element;
 
-    await getHtmlString(date).then(( value ){
-      element=getElementWithTag(value,"summary");
+    await _getHtmlString(date).then(( value ){
+      element=_getElementWithTag(value,"summary");
     }).catchError((error){
       print("I catch error");
       //return "";
-      element=getElementWithTag("<summary></summary>","summary");
+      element=_getElementWithTag("<summary></summary>","summary");
     }).whenComplete((){
       if(element==null||element.children.length==0){
-        element=getElementWithTag("<summary></summary>","summary");
+        element=_getElementWithTag("<summary></summary>","summary");
         //return "";
       }
     });
@@ -57,15 +57,15 @@ class ArticleAssetProvider implements ArticleRepository{
 
     Element element;
 
-    await getHtmlString(date).then(( value ){
-      element=getElementWithTag(value,"ad");
+    await _getHtmlString(date).then(( value ){
+      element=_getElementWithTag(value,"ad");
     }).catchError((error){
       print("I catch error");
       //return "";
-      element=getElementWithTag("<ad></ad>","ad");
+      element=_getElementWithTag("<ad></ad>","ad");
     }).whenComplete((){
       if(element==null||element.children.length==0){
-        element=getElementWithTag("<ad></ad>","ad");
+        element=_getElementWithTag("<ad></ad>","ad");
         //return "";
       }
     });
@@ -74,11 +74,21 @@ class ArticleAssetProvider implements ArticleRepository{
     return element.innerHtml;
   }
 
-  Future<String> getHtmlString(DateTime date)async{
+  @override
+  Future<DayData> getSunDataFor(DateTime date)async{
+    return await _getDayDataFor(date, "sun");
+  }
+
+  @override
+  Future<DayData> getMoonDataFor(DateTime date)async{
+    return await _getDayDataFor(date, "moon");
+  }
+
+  Future<String> _getHtmlString(DateTime date)async{
     return rootBundle.loadString('assets/${date.year}/${date.month}/${date.day}');
   }
 
-  Element getElementWithTag(String html_string, String tagname){
+  Element _getElementWithTag(String html_string, String tagname){
     dom.Document document = parser.parse(html_string);
 
     Element article=document.getElementsByTagName(tagname).elementAt(0);
@@ -88,15 +98,15 @@ class ArticleAssetProvider implements ArticleRepository{
     return article;
   }
 
-  Future<DayData> getDayDataFor(DateTime date, String tag)async{
+  Future<DayData> _getDayDataFor(DateTime date, String tag)async{
 
     DayData data;
 
     String rise="",set="",comment="",icon="";
 
-    await getHtmlString(date).then(( value ){
+    await _getHtmlString(date).then(( value ){
       Element element;
-      element=getElementWithTag(value,tag);
+      element=_getElementWithTag(value,tag);
 
       try {
         icon = element.getElementsByTagName("ico").elementAt(0).innerHtml;
@@ -130,16 +140,5 @@ class ArticleAssetProvider implements ArticleRepository{
 
     return data;
   }
-
-  @override
-  Future<DayData> getSunDataFor(DateTime date)async{
-    return await getDayDataFor(date, "sun");
-  }
-
-  @override
-  Future<DayData> getMoonDataFor(DateTime date)async{
-    return await getDayDataFor(date, "moon");
-  }
-
 
 }

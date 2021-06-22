@@ -26,7 +26,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:yakut_calendar/main.dart';
+import 'package:yakut_calendar/localization/name_collections.dart';
+import 'package:yakut_calendar/localization/sah_date_format.dart';
 
 class MaterialLocalizationSah extends MaterialLocalizationRu {
 
@@ -50,7 +51,7 @@ class MaterialLocalizationSah extends MaterialLocalizationRu {
 
   @override
   List<String> get narrowWeekdays {
-    return _weekdaysNarrow;
+    return weekdaysNarrowNameList;
   }
 
 
@@ -65,9 +66,9 @@ class LocalizationsDelegateSah extends LocalizationsDelegate<MaterialLocalizatio
     return SynchronousFuture(MaterialLocalizationSah(
       fullYearFormat: DateFormat("yyyy","ru"),
       twoDigitZeroPaddedFormat: NumberFormat("","ru"),
-      mediumDateFormat: SahDateFormat(formatWeekday),
+      mediumDateFormat: SahDateFormat(_formatWeekday),
       decimalFormat: NumberFormat("","ru"),
-      yearMonthFormat: SahDateFormat(formatMonth),//DateFormat("yMMMM","ru"),
+      yearMonthFormat: SahDateFormat(_formatMonth),//DateFormat("yMMMM","ru"),
       longDateFormat: DateFormat("yyyy-MM-dd","ru"),
     )
     );
@@ -81,81 +82,15 @@ class LocalizationsDelegateSah extends LocalizationsDelegate<MaterialLocalizatio
 
     return locale.languageCode=="sah";
   }
-}
 
-class DemoApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("asdasd"),
-      ),
-      body: Center(
-        child: Text("asdasd"),
-      ),
-    );
+  String _formatMonth(DateTime date) {
+    final String month = monthsNameList[date.month - DateTime.january];
+    return '$month ${date.year} с.';
   }
 
-
-}
-
-class Demo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        const LocalizationsDelegateSah(),
-      ],
-      supportedLocales: [
-        //const Locale('en', ''),
-        const Locale('sah', 'RU'),
-      ],
-      // Watch out: MaterialApp creates a Localizations widget
-      // with the specified delegates. DemoLocalizations.of()
-      // will only find the app's Localizations widget if its
-      // context is a child of the app.
-      home: DemoApp(),
-    );
+  String _formatWeekday(DateTime date) {
+    return '${weekdaysNameList[(date.weekday==7)?0:date.weekday]}, ${date.day}';
   }
-
-
-}
-
-void main() {
-  runApp(Demo());
-}
-
-
-class SahDateFormat extends DateFormat{
-
-  Function f;
-
-  SahDateFormat(Function f){
-    this.f=f;
-  }
-
-  @override
-  String format(DateTime date){
-    if(date==null)date=DateTime.now();
-    return f(date);
-  }
-}
-
-List<String> _months=["Тохсунньу", "Олунньу", "Кулун тутар", "Муус устар", "Ыам ыйа", "Бэс ыйа", "От ыйа", "Атырдьах ыйа", "Балаҕан ыйа","Алтынньы","Сэтинньи","Ахсынньы"];
-List<String> _weekdays=["Баскыһыанньа","Бэнидиэнньик","Оптуорунньук","Сэрэдэ","Чэппиэр","Бээтинсэ","Субуота"];
-List<String> _weekdaysNarrow=["Бс","Бн","Опт","Сэр","Чп","Бт","Сб"];
-
-String formatMonth(DateTime date) {
-  final String month = _months[date.month - DateTime.january];
-  return '$month ${date.year} с.';
-}
-
-
-String formatWeekday(DateTime date) {
-  return '${_weekdays[(date.weekday==7)?0:date.weekday]}, ${date.day}';
 }
 
 
