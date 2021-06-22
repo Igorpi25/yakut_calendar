@@ -72,6 +72,7 @@ XML, по сравнению с JSON, более удобен с точки зр
 т.к. автор прекратил поддержку приложения  
 
 [<img src="../media/screenshots/icon-googleplay.png?raw=true" width="200">](https://play.google.com/store/apps/details?id=com.ivanov.tech.yakutcalendar)
+[<img src="../media/screenshots/icon-appstore.png?raw=true" width="200">](https://apps.apple.com/us/app/сахалыы-халандаар/id1446178866)
 
 ## Share
 
